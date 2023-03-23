@@ -105,16 +105,19 @@ class _SignupState extends State<Signup> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
-        body: SlideTransition(
-          position: offset,
-          child: Swiper(
-            itemCount: 3,
-            itemBuilder: (context, index) {
-              return pages[index];
-            },
-            loop: false,
-            controller: _controller,
-            allowImplicitScrolling: true,
+        body: Container(
+          child: SlideTransition(
+            position: offset,
+            child: Swiper(
+              itemCount: 3,
+              itemBuilder: (context, index) {
+                return pages[index];
+              },
+              loop: false,
+              controller: _controller,
+              allowImplicitScrolling: true,
+
+            ),
           ),
         ));
   }

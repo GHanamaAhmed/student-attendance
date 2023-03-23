@@ -205,6 +205,7 @@ class _SigninState extends State<Signin> with TickerProviderStateMixin {
                       ],
                     ),
                   ),
+
                   Container(
                     child: TextFormField(
                       onTap: () {

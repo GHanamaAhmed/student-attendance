@@ -213,6 +213,8 @@ class _Page2State extends State<Page2> {
   final TextEditingController _controller1 = new TextEditingController();
   final TextEditingController _controller2 = new TextEditingController();
   final TextEditingController _controller3 = new TextEditingController();
+  final GlobalKey<FormFieldState> _key1= new GlobalKey();
+  final GlobalKey<FormFieldState> _key2= new GlobalKey();
   bool firstNameClick = false;
   bool lastNameClick = false;
   bool faculteClick = false;
@@ -416,7 +418,7 @@ class _Page2State extends State<Page2> {
                                           Color.fromRGBO(245, 245, 245, 0.6)),
                                   // Step 4.
                                   items: isCf == false
-                                      ? <String>["empty"]
+                                      ? null
                                       : facultes.map<DropdownMenuItem<String>>(
                                           (String value) {
                                           return DropdownMenuItem<String>(
@@ -432,6 +434,7 @@ class _Page2State extends State<Page2> {
                                     setState(() {
                                       isCD = false;
                                       isCS = false;
+                                      _key2.currentState?.reset();
                                     });
                                     setState(() {
                                       faculte = newValue!;
@@ -443,8 +446,7 @@ class _Page2State extends State<Page2> {
                         ),
                         Container(
                           margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                          child: isCD
-                              ? DropdownButtonFormField<String>(
+                          child: DropdownButtonFormField<String>(
                                   onTap: () {
                                     setState(() {
                                       departmentClick = true;
@@ -477,7 +479,7 @@ class _Page2State extends State<Page2> {
                                           Color.fromRGBO(245, 245, 245, 0.6)),
 
                                   // Step 4.
-                                  items: departments
+                                  items:isCD? departments
                                       .map<DropdownMenuItem<String>>(
                                           (String value) {
                                     return DropdownMenuItem<String>(
@@ -487,10 +489,11 @@ class _Page2State extends State<Page2> {
                                         style: TextStyle(fontSize: 15),
                                       ),
                                     );
-                                  }).toList(),
+                                  }).toList():null,
                                   // Step 5.
                                   onChanged: (String? newValue) {
                                     setState(() {
+                                      _key1.currentState?.reset();
                                       isCS = false;
                                     });
                                     setState(() {
@@ -498,18 +501,16 @@ class _Page2State extends State<Page2> {
                                       connectS();
                                     });
                                   },
-                                )
-                              : null,
+                                ),
                         ),
                         Container(
                           margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                          child: isCS
-                              ? DropdownButtonFormField<String>(
+                          child: DropdownButtonFormField<String>(
                                   onTap: () {
                                     setState(() {
                                       specialistClick = true;
                                     });
-                                  },
+                                  },key: _key1,
                                   isExpanded: true,
                                   decoration: InputDecoration(
                                       enabledBorder: OutlineInputBorder(
@@ -537,7 +538,7 @@ class _Page2State extends State<Page2> {
                                           Color.fromRGBO(245, 245, 245, 0.6)),
 
                                   // Step 4.
-                                  items: specialists
+                                  items:isCS? specialists
                                       .map<DropdownMenuItem<String>>(
                                           (String value) {
                                     return DropdownMenuItem<String>(
@@ -547,15 +548,14 @@ class _Page2State extends State<Page2> {
                                         style: TextStyle(fontSize: 15),
                                       ),
                                     );
-                                  }).toList(),
-                                  // Step 5.
-                                  onChanged: (String? newValue) {
+                                  }).toList():null,
+                                  onChanged:isCS? (String? newValue) {
                                     setState(() {
                                       specialist = newValue!;
                                     });
-                                  },
+                                  }:null,
                                 )
-                              : null,
+                              ,
                         ),
                         Container(
                           margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
