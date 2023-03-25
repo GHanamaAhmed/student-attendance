@@ -116,7 +116,6 @@ class _SignupState extends State<Signup> with TickerProviderStateMixin {
               loop: false,
               controller: _controller,
               allowImplicitScrolling: true,
-              physics: NeverScrollableScrollPhysics(),
             ),
           ),
         ));

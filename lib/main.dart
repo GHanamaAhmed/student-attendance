@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:skoni/signin/signin.dart';
 import 'package:skoni/signup/signup.dart';
 import 'package:flutter/services.dart';
+import 'package:skoni/student%20ui/Qrcode.dart';
+import 'package:skoni/student%20ui/scanner.dart';
 import 'package:skoni/student%20ui/student_UI.dart';
 import 'package:skoni/teacher%20ui/teacher_UI.dart';
 void main() {
@@ -33,7 +35,9 @@ class _MyAppState extends State<MyApp>{
         '/signup': (context) =>Signup(),
         '/signin': (context) => Signin(),
         '/student ui': (context) => student_UI(),
-        '/teacher ui ': (context) => teacher_UI(),
+        '/teacher ui': (context) => teacher_UI(),
+//        '/teacher ui/home': (context) => Home(),
+ //       '/teacher ui/scanner': (context) => QRScannerOverlay(overlayColour: Colors.white30),
       },
     );
   }
