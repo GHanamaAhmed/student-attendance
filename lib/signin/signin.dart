@@ -1,9 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 import 'dart:io';
+import 'package:skoni/student%20ui/student_UI.dart' ;
+
 
 class Signin extends StatefulWidget {
   const Signin({Key? key}) : super(key: key);
@@ -138,7 +139,7 @@ class _SigninState extends State<Signin> with TickerProviderStateMixin {
         setState(() {
           connecting = false;
         });
-        return (showDialog<String>(
+       /* return (showDialog<String>(
             context: context,
             builder: (BuildContext context) => AlertDialog(
                   title: const Text('Sign in'),
@@ -149,7 +150,9 @@ class _SigninState extends State<Signin> with TickerProviderStateMixin {
                       child: const Text('Cancel'),
                     )
                   ],
-                )));
+                )));*/
+        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>const student_UI()));
+
       }
     } else {
       setState(() {
@@ -207,6 +210,7 @@ class _SigninState extends State<Signin> with TickerProviderStateMixin {
                   ),
 
                   Container(
+                    margin: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                     child: TextFormField(
                       onTap: () {
                         setState(() {
@@ -248,9 +252,9 @@ class _SigninState extends State<Signin> with TickerProviderStateMixin {
                           hintText: "Username or Email",
                           fillColor: const Color.fromRGBO(245, 245, 245, 0.6)),
                     ),
-                    margin: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                   ),
                   Container(
+                    margin: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                     child: TextFormField(
                       onTap: () {
                         setState(() {
@@ -293,7 +297,6 @@ class _SigninState extends State<Signin> with TickerProviderStateMixin {
                           hintText: "Password",
                           fillColor: const Color.fromRGBO(245, 245, 245, 0.6)),
                     ),
-                    margin: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                   ),
                   Container(
                     margin: const EdgeInsets.fromLTRB(0, 10, 0, 10),

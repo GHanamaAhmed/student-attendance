@@ -16,6 +16,7 @@ class Page2 extends StatefulWidget {
   final Function onChangedyear;
   final Function onChangedsex;
   final Function onChangedmodule;
+
   Page2(
       {Key? key,
       required this.controller,
@@ -27,7 +28,8 @@ class Page2 extends StatefulWidget {
       required this.onChangedyear,
       required this.onChangefirst,
       required this.onChangelast,
-      required this.onChangedsex,required this.onChangedmodule})
+      required this.onChangedsex,
+      required this.onChangedmodule})
       : super(key: key);
 
   @override
@@ -131,14 +133,14 @@ class _Page2State extends State<Page2> {
 
   Future<dynamic> next() async {
     if ((_controller1.text.isNotEmpty &&
-                _controller2.text.isNotEmpty &&
-                faculte != "" &&
-                department != "" &&
-                specialist != "" &&
-                academicYear != "" &&
-                widget.dDvalue !="" &&
-            sex != "") ||(
-        _controller1.text.isNotEmpty &&
+            _controller2.text.isNotEmpty &&
+            faculte != "" &&
+            department != "" &&
+            specialist != "" &&
+            academicYear != "" &&
+            widget.dDvalue != "" &&
+            sex != "") ||
+        (_controller1.text.isNotEmpty &&
             _controller2.text.isNotEmpty &&
             widget.dDvalue != "" &&
             sex != "")) {
@@ -146,7 +148,7 @@ class _Page2State extends State<Page2> {
         connecting = true;
       });
       var respose;
-      if( widget.dDvalue == "Student"){
+      if (widget.dDvalue == "Student") {
         respose = await http.post(
             Uri.parse("https://simpleapi-p29y.onrender.com/student/auth"),
             headers: {
@@ -155,7 +157,7 @@ class _Page2State extends State<Page2> {
             body: {
               "email": widget.email.value,
             });
-      }else{
+      } else {
         respose = await http.post(
             Uri.parse("https://simpleapi-p29y.onrender.com/teacher/auth"),
             headers: {
@@ -193,19 +195,19 @@ class _Page2State extends State<Page2> {
       widget.onChangedsex(sex);
       widget.onChangedmodule(module);
       widget.controller.next();
-    }else{
+    } else {
       return (showDialog<String>(
           context: context,
           builder: (BuildContext context) => AlertDialog(
-            title: const Text('Worring'),
-            content: Text("Enter all data please"),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () => Navigator.pop(context, 'Cancel'),
-                child: const Text('Cancel'),
-              )
-            ],
-          )));
+                title: const Text('Worring'),
+                content: Text("Enter all data please"),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, 'Cancel'),
+                    child: const Text('Cancel'),
+                  )
+                ],
+              )));
     }
   }
 
@@ -213,8 +215,8 @@ class _Page2State extends State<Page2> {
   final TextEditingController _controller1 = new TextEditingController();
   final TextEditingController _controller2 = new TextEditingController();
   final TextEditingController _controller3 = new TextEditingController();
-  final GlobalKey<FormFieldState> _key1= new GlobalKey();
-  final GlobalKey<FormFieldState> _key2= new GlobalKey();
+  final GlobalKey<FormFieldState> _key1 = new GlobalKey();
+  final GlobalKey<FormFieldState> _key2 = new GlobalKey();
   bool firstNameClick = false;
   bool lastNameClick = false;
   bool faculteClick = false;
@@ -236,6 +238,7 @@ class _Page2State extends State<Page2> {
   dynamic facultes = null;
   dynamic specialists = ["empty"];
   dynamic departments = null;
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -447,41 +450,37 @@ class _Page2State extends State<Page2> {
                         Container(
                           margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
                           child: DropdownButtonFormField<String>(
-                                  onTap: () {
-                                    setState(() {
-                                      departmentClick = true;
-                                    });
-                                  },
-                                  isExpanded: true,
-                                  decoration: InputDecoration(
-                                      enabledBorder: OutlineInputBorder(
-                                          borderSide: departmentClick == true &&
-                                                  department == ""
-                                              ? BorderSide(
-                                                  color: Colors.redAccent,
-                                                  width: 2)
-                                              : BorderSide.none),
-                                      border: OutlineInputBorder(
-                                          borderSide: departmentClick == true &&
-                                                  department == ""
-                                              ? BorderSide(
-                                                  color: Colors.redAccent,
-                                                  width: 2)
-                                              : BorderSide(
-                                                  color: Colors.blueAccent,
-                                                  width: 2)),
-                                      hintStyle: TextStyle(
-                                          color:
-                                              Color.fromRGBO(73, 69, 79, 0.7)),
-                                      hintText: "department",
-                                      filled: true,
-                                      fillColor:
-                                          Color.fromRGBO(245, 245, 245, 0.6)),
+                            onTap: () {
+                              setState(() {
+                                departmentClick = true;
+                              });
+                            },
+                            isExpanded: true,
+                            decoration: InputDecoration(
+                                enabledBorder: OutlineInputBorder(
+                                    borderSide: departmentClick == true &&
+                                            department == ""
+                                        ? BorderSide(
+                                            color: Colors.redAccent, width: 2)
+                                        : BorderSide.none),
+                                border: OutlineInputBorder(
+                                    borderSide: departmentClick == true &&
+                                            department == ""
+                                        ? BorderSide(
+                                            color: Colors.redAccent, width: 2)
+                                        : BorderSide(
+                                            color: Colors.blueAccent,
+                                            width: 2)),
+                                hintStyle: TextStyle(
+                                    color: Color.fromRGBO(73, 69, 79, 0.7)),
+                                hintText: "department",
+                                filled: true,
+                                fillColor: Color.fromRGBO(245, 245, 245, 0.6)),
 
-                                  // Step 4.
-                                  items:isCD? departments
-                                      .map<DropdownMenuItem<String>>(
-                                          (String value) {
+                            // Step 4.
+                            items: isCD
+                                ? departments.map<DropdownMenuItem<String>>(
+                                    (String value) {
                                     return DropdownMenuItem<String>(
                                       value: value,
                                       child: Text(
@@ -489,58 +488,56 @@ class _Page2State extends State<Page2> {
                                         style: TextStyle(fontSize: 15),
                                       ),
                                     );
-                                  }).toList():null,
-                                  // Step 5.
-                                  onChanged: (String? newValue) {
-                                    setState(() {
-                                      _key1.currentState?.reset();
-                                      isCS = false;
-                                    });
-                                    setState(() {
-                                      department = newValue!;
-                                      connectS();
-                                    });
-                                  },
-                                ),
+                                  }).toList()
+                                : null,
+                            // Step 5.
+                            onChanged: (String? newValue) {
+                              setState(() {
+                                _key1.currentState?.reset();
+                                isCS = false;
+                              });
+                              setState(() {
+                                department = newValue!;
+                                connectS();
+                              });
+                            },
+                          ),
                         ),
                         Container(
                           margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
                           child: DropdownButtonFormField<String>(
-                                  onTap: () {
-                                    setState(() {
-                                      specialistClick = true;
-                                    });
-                                  },key: _key1,
-                                  isExpanded: true,
-                                  decoration: InputDecoration(
-                                      enabledBorder: OutlineInputBorder(
-                                          borderSide: specialistClick == true &&
-                                                  specialist == ""
-                                              ? BorderSide(
-                                                  color: Colors.redAccent,
-                                                  width: 2)
-                                              : BorderSide.none),
-                                      border: OutlineInputBorder(
-                                          borderSide: specialistClick == true &&
-                                                  specialist == ""
-                                              ? BorderSide(
-                                                  color: Colors.redAccent,
-                                                  width: 2)
-                                              : BorderSide(
-                                                  color: Colors.blueAccent,
-                                                  width: 2)),
-                                      hintStyle: TextStyle(
-                                          color:
-                                              Color.fromRGBO(73, 69, 79, 0.7)),
-                                      hintText: "specialist",
-                                      filled: true,
-                                      fillColor:
-                                          Color.fromRGBO(245, 245, 245, 0.6)),
+                            onTap: () {
+                              setState(() {
+                                specialistClick = true;
+                              });
+                            },
+                            key: _key1,
+                            isExpanded: true,
+                            decoration: InputDecoration(
+                                enabledBorder: OutlineInputBorder(
+                                    borderSide: specialistClick == true &&
+                                            specialist == ""
+                                        ? BorderSide(
+                                            color: Colors.redAccent, width: 2)
+                                        : BorderSide.none),
+                                border: OutlineInputBorder(
+                                    borderSide: specialistClick == true &&
+                                            specialist == ""
+                                        ? BorderSide(
+                                            color: Colors.redAccent, width: 2)
+                                        : BorderSide(
+                                            color: Colors.blueAccent,
+                                            width: 2)),
+                                hintStyle: TextStyle(
+                                    color: Color.fromRGBO(73, 69, 79, 0.7)),
+                                hintText: "specialist",
+                                filled: true,
+                                fillColor: Color.fromRGBO(245, 245, 245, 0.6)),
 
-                                  // Step 4.
-                                  items:isCS? specialists
-                                      .map<DropdownMenuItem<String>>(
-                                          (String value) {
+                            // Step 4.
+                            items: isCS
+                                ? specialists.map<DropdownMenuItem<String>>(
+                                    (String value) {
                                     return DropdownMenuItem<String>(
                                       value: value,
                                       child: Text(
@@ -548,14 +545,16 @@ class _Page2State extends State<Page2> {
                                         style: TextStyle(fontSize: 15),
                                       ),
                                     );
-                                  }).toList():null,
-                                  onChanged:isCS? (String? newValue) {
+                                  }).toList()
+                                : null,
+                            onChanged: isCS
+                                ? (String? newValue) {
                                     setState(() {
                                       specialist = newValue!;
                                     });
-                                  }:null,
-                                )
-                              ,
+                                  }
+                                : null,
+                          ),
                         ),
                         Container(
                           margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
@@ -621,7 +620,7 @@ class _Page2State extends State<Page2> {
                         TextFormField(
                           controller: _controller3,
                           onChanged: (String? newValue) => setState(() {
-                            module=newValue!;
+                            module = newValue!;
                           }),
                           onTap: () {
                             setState(() {

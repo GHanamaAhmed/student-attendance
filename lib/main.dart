@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:skoni/signin/signin.dart';
 import 'package:skoni/signup/signup.dart';
 import 'package:flutter/services.dart';
+import 'package:skoni/student%20ui/student_UI.dart';
+import 'package:skoni/teacher%20ui/teacher_UI.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([
@@ -26,10 +28,12 @@ class _MyAppState extends State<MyApp>{
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: "/signin",
+      initialRoute: "/student ui",
       routes: {
         '/signup': (context) =>Signup(),
-        '/signin': (context) => Signin()
+        '/signin': (context) => Signin(),
+        '/student ui': (context) => student_UI(),
+        '/teacher ui ': (context) => teacher_UI(),
       },
     );
   }

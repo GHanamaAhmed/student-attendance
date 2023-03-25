@@ -261,6 +261,7 @@ class _Page1State extends State<Page3> {
               ),
             ),
             Container(
+              margin: const EdgeInsets.fromLTRB(0, 10, 0, 10),
               child: TextFormField(
                 controller: _controller,
                 keyboardType: TextInputType.number,
@@ -285,7 +286,6 @@ class _Page1State extends State<Page3> {
                     filled: true,
                     fillColor: const Color.fromRGBO(245, 245, 245, 0.6)),
               ),
-              margin: const EdgeInsets.fromLTRB(0, 10, 0, 10),
             ),
             Container(
               margin: const EdgeInsets.fromLTRB(0, 10, 0, 10),
