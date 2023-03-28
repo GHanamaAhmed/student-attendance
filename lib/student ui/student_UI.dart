@@ -22,7 +22,7 @@ class _student_UIState extends State<student_UI> {
   }
 
   final SwiperController _controller = new SwiperController();
-  var page = [Class(), Home()];
+  var page = [Class(), QRcode()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +32,9 @@ class _student_UIState extends State<student_UI> {
             gradient: LinearGradient(
                 begin: Alignment.bottomLeft,
                 end: Alignment.centerRight,
-                colors: [Color(0xff0066ff), Color(0xff50dbff)])),
+                colors: [Color(0xff0066ff), Color(0xff50dbff)]
+            )
+        ),
         child: BottomNavigationBar(
           elevation: 0,
           currentIndex: currentPage,

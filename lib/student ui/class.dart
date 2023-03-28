@@ -7,7 +7,9 @@ class Class extends StatefulWidget {
 }
 
 class _ClassState extends State<Class> {
-  List<String> entries = <String>['A', 'B', 'C'];
+  List<String> teacher = <String>['Ahmed ghanama', 'ahmed elmasri', 'rabah abellache','zakaria moulay lkhader'];
+  List<String> Class = <String>['redaction siantific', 'app mobile', 'system information','graph theory'];
+  List<String> time = <String>['8:00-9:30', '9:30-11:00', '11:00-12:30','2:00-3:30'];
   String username = 'elmasri ahmed';
   @override
   Widget build(BuildContext context) {
@@ -44,11 +46,17 @@ class _ClassState extends State<Class> {
       ),
       body:  ListView.separated(
         padding: const EdgeInsets.all(10),
-        itemCount: entries.length,
+        itemCount: Class.length,
         itemBuilder: (BuildContext context, int index) {
           return Container(
             height: 90,
+
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+                  color: Color(0xffecedf6)
+            ),
             child: Card(
+
               /* decoration:  BoxDecoration(
               gradient:const LinearGradient(
                 begin: Alignment.bottomLeft,
@@ -66,19 +74,46 @@ class _ClassState extends State<Class> {
                   mainAxisAlignment: MainAxisAlignment.start  ,
 
                   children: [
-                    const SizedBox(
-                      width: 60,
-                      child:Icon(
-                          Icons.pie_chart_sharp
-                          ,color: Colors.blueAccent
+                    Container(
+                        decoration: BoxDecoration(
+                          color: const Color(0xCA9AE1F6),
+                          borderRadius: BorderRadius.circular(200)
+                        ),
+                      margin: const EdgeInsets.fromLTRB(5,3,5,3),
+                      child: const SizedBox(
+                        height: 40,
+                        width: 40,
+                        child:Icon(
+                            Icons.pie_chart_sharp
+                            ,color: Colors.blueAccent
+                        ),
                       ),
                     ),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Text('teacher name '),
-                        Text('class name'),
-                        Text('time')
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children:  [
+                        Container(
+                          width: 300,
+                            margin: const EdgeInsets.fromLTRB(15,3,15,3),
+                            child: Text('${Class[index]}' ,style: const TextStyle(fontSize: 20),)
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Container(
+                                margin: const EdgeInsets.fromLTRB(15,3,15,3),
+                                child: Text('${teacher[index]}',style: const TextStyle(fontSize: 15),)),
+                            Container(
+                                margin: const EdgeInsets.fromLTRB(15,3,15,3),
+                                child: Text('${time[index]}',
+                                    style:  const TextStyle(color: Color(0xCA29C0EC),
+                                        fontSize: 15,
+                                    )
+                                )
+                            )
+                          ],
+                             )
                       ],
 
                     )

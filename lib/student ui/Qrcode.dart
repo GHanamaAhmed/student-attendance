@@ -4,15 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:http/http.dart' as http;
 import 'package:card_swiper/card_swiper.dart';
+import 'package:qr_code_scanner/qr_code_scanner.dart';
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+class QRcode extends StatefulWidget {
+  const QRcode({Key? key}) : super(key: key);
 
   @override
-  State<Home> createState() => _HomeState();
+  State<QRcode> createState() => _QRcodeState();
 }
 
-class _HomeState extends State<Home> with TickerProviderStateMixin {
+class _QRcodeState extends State<QRcode> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +22,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              margin: EdgeInsets.fromLTRB(0, 0, 0, 50),
+              margin: const EdgeInsets.fromLTRB(0, 0, 0, 50),
               child: GestureDetector(
                 onTap: () {
                   setState(() async {
@@ -34,26 +35,26 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                 ),
               ),
             ),
-            Text(
+            const Text(
               "OR",
               style: TextStyle(
                   color: Colors.blueAccent, fontSize: 50),
             ),
             Container(
-              margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+              margin: const EdgeInsets.fromLTRB(0, 0, 0, 10),
               width: double.infinity,
               child: FractionallySizedBox(
                 widthFactor: 0.8,
                 child: TextFormField(
                   onTap: () {},
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                       enabledBorder:
                           OutlineInputBorder(borderSide: BorderSide.none),
                       border: OutlineInputBorder(
-                          borderSide: const BorderSide(
+                          borderSide: BorderSide(
                               color: Colors.blueAccent, width: 2)),
                       filled: true,
-                      hintStyle: const TextStyle(
+                      hintStyle: TextStyle(
                           color: Color.fromRGBO(73, 69, 79, 0.7)),
                       hintText: "Code",
                       fillColor: Colors.white),
@@ -67,12 +68,16 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
                     backgroundColor: Colors.white,
                   ),
-                  onPressed: () {},
-                  child: Text(
+
+                  onPressed: () {
+                    Navigator.pushNamed(context,'/tests' );
+                  },
+                  child: const Text(
                     "Scan",
                     style: TextStyle(
                         color: Colors.blueAccent, fontSize: 20),
-                  )),
+                  )
+              ),
             )
           ],
         ),
