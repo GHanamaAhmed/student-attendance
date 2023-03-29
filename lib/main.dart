@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:skoni/signin/signin.dart';
 import 'package:skoni/signup/signup.dart';
 import 'package:flutter/services.dart';
-import 'package:skoni/student%20ui/Qrcode.dart';
-import 'package:skoni/student%20ui/scanner.dart';
 import 'package:skoni/student%20ui/student_UI.dart';
 import 'package:skoni/teacher%20ui/teacher_UI.dart';
 
@@ -31,13 +29,12 @@ class _MyAppState extends State<MyApp>{
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: "/student ui",
+      initialRoute: "/signin",
       routes: {
         '/signup': (context) =>Signup(),
         '/signin': (context) => Signin(),
         '/student ui': (context) => student_UI(),
         '/teacher ui': (context) => teacher_UI(),
-        '/scanner': (context) => QrCodeScannerScreen(),
 //        '/teacher ui/home': (context) => Home(),
  //       '/teacher ui/scanner': (context) => QRScannerOverlay(overlayColour: Colors.white30),
       },

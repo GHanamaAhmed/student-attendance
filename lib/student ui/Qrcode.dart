@@ -1,19 +1,17 @@
-import 'dart:convert';
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:http/http.dart' as http;
 import 'package:card_swiper/card_swiper.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
 
-class QRcode extends StatefulWidget {
-  const QRcode({Key? key}) : super(key: key);
+class QRCode extends StatefulWidget {
+  final SwiperController contoller;
+  QRCode({Key? key, required this.contoller}) : super(key: key);
 
   @override
-  State<QRcode> createState() => _QRcodeState();
+  State<QRCode> createState() => _QRCodeState();
 }
 
-class _QRcodeState extends State<QRcode> with TickerProviderStateMixin {
+class _QRCodeState extends State<QRCode> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,12 +20,11 @@ class _QRcodeState extends State<QRcode> with TickerProviderStateMixin {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              margin: const EdgeInsets.fromLTRB(0, 0, 0, 50),
+              margin: EdgeInsets.fromLTRB(0, 0, 0, 50),
               child: GestureDetector(
                 onTap: () {
                   setState(() async {
-
-                    Navigator.pushNamed(context, "/teacher ui/scanner");
+                    Navigator.of(context).pushNamed("/scanner");
                   });
                 },
                 child: SvgPicture.asset(
@@ -35,26 +32,25 @@ class _QRcodeState extends State<QRcode> with TickerProviderStateMixin {
                 ),
               ),
             ),
-            const Text(
+            Text(
               "OR",
-              style: TextStyle(
-                  color: Colors.blueAccent, fontSize: 50),
+              style: TextStyle(color: Colors.blueAccent, fontSize: 50),
             ),
             Container(
-              margin: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+              margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
               width: double.infinity,
               child: FractionallySizedBox(
                 widthFactor: 0.8,
                 child: TextFormField(
                   onTap: () {},
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                       enabledBorder:
                           OutlineInputBorder(borderSide: BorderSide.none),
                       border: OutlineInputBorder(
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                               color: Colors.blueAccent, width: 2)),
                       filled: true,
-                      hintStyle: TextStyle(
+                      hintStyle: const TextStyle(
                           color: Color.fromRGBO(73, 69, 79, 0.7)),
                       hintText: "Code",
                       fillColor: Colors.white),
@@ -68,16 +64,11 @@ class _QRcodeState extends State<QRcode> with TickerProviderStateMixin {
                     padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
                     backgroundColor: Colors.white,
                   ),
-
-                  onPressed: () {
-                    Navigator.pushNamed(context,'/tests' );
-                  },
-                  child: const Text(
+                  onPressed: () {},
+                  child: Text(
                     "Scan",
-                    style: TextStyle(
-                        color: Colors.blueAccent, fontSize: 20),
-                  )
-              ),
+                    style: TextStyle(color: Colors.blueAccent, fontSize: 20),
+                  )),
             )
           ],
         ),

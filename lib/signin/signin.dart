@@ -3,8 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:io';
-import 'package:skoni/student%20ui/student_UI.dart' ;
+import 'package:skoni/student%20ui/student_UI.dart';
 
+import '../redux/data.dart';
 
 class Signin extends StatefulWidget {
   const Signin({Key? key}) : super(key: key);
@@ -139,7 +140,7 @@ class _SigninState extends State<Signin> with TickerProviderStateMixin {
         setState(() {
           connecting = false;
         });
-       /* return (showDialog<String>(
+        /* return (showDialog<String>(
             context: context,
             builder: (BuildContext context) => AlertDialog(
                   title: const Text('Sign in'),
@@ -151,8 +152,18 @@ class _SigninState extends State<Signin> with TickerProviderStateMixin {
                     )
                   ],
                 )));*/
-        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>const student_UI()));
-
+        Student.setstudent(
+            deresponse["data"]["firstname"].toString(),
+            deresponse["data"]["lastname"].toString(),
+            deresponse["data"]["sex"].toString(),
+            deresponse["data"]["email"].toString(),
+            deresponse["data"]["password"].toString(),
+            deresponse["data"]["faculte"].toString(),
+            deresponse["data"]["department"].toString(),
+            deresponse["data"]["specialist"].toString(),
+            deresponse["data"]["year"].toString());
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => const student_UI()));
       }
     } else {
       setState(() {
@@ -208,7 +219,6 @@ class _SigninState extends State<Signin> with TickerProviderStateMixin {
                       ],
                     ),
                   ),
-
                   Container(
                     margin: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                     child: TextFormField(

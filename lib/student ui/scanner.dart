@@ -1,89 +1,112 @@
+import 'dart:convert';
+import 'dart:io';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:redux/redux.dart';
+import 'package:skoni/student%20ui/session.dart';
 
-class QrCodeScannerScreen extends StatefulWidget {
+import '../redux/data.dart';
+
+class QRCodeScannerScreen extends StatefulWidget {
   @override
-  _QrCodeScannerScreenState createState() => _QrCodeScannerScreenState();
+  State<StatefulWidget> createState() => _QRCodeScannerScreenState();
 }
 
-class _QrCodeScannerScreenState extends State<QrCodeScannerScreen> {
+class _QRCodeScannerScreenState extends State<QRCodeScannerScreen> {
+  bool isvalid = false;
+  dynamic joinroom(String qrcode) async {
+    var respone;
+    respone = await http.post(
+        Uri.parse("https://simpleapi-p29y.onrender.com/student/joinroom"),
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: {
+          "email": Student.email.toString(),
+          "password": Student.password.toString(),
+          "qrcode": qrcode
+        });
+    var deresponse;
+    deresponse = jsonDecode(respone.body);
+    if (!deresponse["res"]) {
+      controller?.dispose();
+      return (showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+                title: const Text('Worring'),
+                content: Text(deresponse["mes"]),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, 'Cancel'),
+                    child: const Text('Cancel'),
+                  )
+                ],
+              )));
+    } else {
+      // await Future.delayed(Duration(seconds: 1));
+      isvalid = true;
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => Session(
+                idroom: deresponse["data"]["idRoom"].toString(),
+              )));
+    }
+  }
+
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
-  late QRViewController controller;
-  bool isScanning = false;
+  late final Store<Student> store;
+  QRViewController? controller;
+  String qrText = '';
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   void dispose() {
-    controller.dispose();
     super.dispose();
+    controller?.dispose();
   }
 
   void _onQRViewCreated(QRViewController controller) {
-    setState(() {
-      this.controller = controller;
-    });
+    this.controller = controller;
     controller.scannedDataStream.listen((scanData) {
-      // Do something with the scan data
-      print('scanned  ${scanData.code}');
-    });
-  }
+      controller.pauseCamera();
+      setState(() {
+        qrText = scanData.code!;
+        joinroom(qrText);
 
-  void _startScan() {
-    setState(() {
-      isScanning = true;
+        if (isvalid) {
+          controller?.stopCamera();
+          controller?.dispose();
+        }
+      });
     });
-  }
-
-  void _stopScan() {
-    setState(() {
-      isScanning = false;
-    });
-    controller?.pauseCamera();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('QR Code Scanner',style: TextStyle(color:Colors.white ,fontSize: 20 )),
-        flexibleSpace: Container(
-          decoration:const BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.centerRight,
-                  end:Alignment.centerLeft ,
-                  colors: [Color(0xff0066ff), Color(0xff50dbff)]
-
-              )
-          ),
-        ),
-      ),
-      body: Stack(
-        children: [
-          QRView(
-            key: qrKey,
-            onQRViewCreated: _onQRViewCreated,
-            overlay: QrScannerOverlayShape(
-              borderColor: Colors.blue,
-              borderRadius: 10,
-              borderLength: 30,
-              borderWidth: 10,
-              cutOutSize: MediaQuery.of(context).size.width * 0.8,
+      body: Column(
+        children: <Widget>[
+          Expanded(
+            flex: 5,
+            child: QRView(
+              key: qrKey,
+              onQRViewCreated: _onQRViewCreated,
             ),
           ),
-          if (!isScanning)
-            Center(
-              child: ElevatedButton(
-                onPressed: _startScan,
-                child: const Text('Start Scan'),
-              ),
+          /* Expanded(
+            flex: 1,
+            child: Center(
+              child: Text('Scanned Text: $qrText'),
             ),
+          ),*/
         ],
       ),
-      floatingActionButton: isScanning
-          ? FloatingActionButton(
-        onPressed: _stopScan,
-        child: const Icon(Icons.stop),
-      )
-          : null,
     );
   }
 }
