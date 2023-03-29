@@ -1,9 +1,10 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:skoni/student%20ui/class.dart';
 import 'package:skoni/student%20ui/Qrcode.dart';
 import 'package:skoni/student%20ui/scanner.dart';
-import 'package:skoni/student%20ui/session.dart';
+import 'package:flutter_svg/svg.dart';
 
 class student_UI extends StatefulWidget {
   const student_UI({Key? key}) : super(key: key);
@@ -16,11 +17,14 @@ class _student_UIState extends State<student_UI> {
   int currentPage = 0;
   final List<int> colorCodes = <int>[600, 500, 100];
   final SwiperController _controller = new SwiperController();
-  final GlobalKey<NavigatorState> key1=new GlobalKey<NavigatorState>();
+  final GlobalKey<NavigatorState> key1 = new GlobalKey<NavigatorState>();
   void _onItemtapped(int index) {
     setState(() {
       currentPage = index;
-      key1.currentState?.pushAndRemoveUntil( MaterialPageRoute(builder: (context) => QRCode(contoller: _controller)), (route) => false);
+      key1.currentState?.pushAndRemoveUntil(
+          MaterialPageRoute(
+              builder: (context) => QRCode(contoller: _controller)),
+          (route) => false);
       _controller.move(index);
     });
   }
@@ -31,14 +35,17 @@ class _student_UIState extends State<student_UI> {
     // TODO: implement initState
     page = [
       Class(),
+      Container(),
       MaterialApp(
+        debugShowCheckedModeBanner: false,
         initialRoute: "/qrcode",
         navigatorKey: key1,
         routes: {
           "/qrcode": (context) => QRCode(contoller: _controller),
           "/scanner": (context) => QRCodeScannerScreen(),
         },
-      )
+      ),
+      Container()
     ];
     super.initState();
   }
@@ -56,23 +63,33 @@ class _student_UIState extends State<student_UI> {
         child: BottomNavigationBar(
           elevation: 0,
           currentIndex: currentPage,
-          backgroundColor: Colors.transparent,
+          backgroundColor: Colors.white,
           selectedFontSize: 15,
           iconSize: 25,
-          selectedItemColor: const Color(0xcfe10f0f),
+          selectedItemColor: Color.fromRGBO(73, 92, 131, 1),
           onTap: _onItemtapped,
-          items: const [
+          items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-                icon: Icon(Icons.class_outlined), label: 'class'),
+                icon: SvgPicture.asset("assets/images/home1.svg"),
+                activeIcon: SvgPicture.asset("assets/images/home.svg"),
+                label: 'Dashboard'),
             BottomNavigationBarItem(
-                icon: Icon(Icons.qr_code_2_outlined), label: 'scan qr code'),
+                icon: SvgPicture.asset("assets/images/stickynote.svg"),
+                activeIcon: SvgPicture.asset("assets/images/stickynote1.svg"),
+                label: 'Dashboard'),
             BottomNavigationBarItem(
-                icon: Icon(Icons.person_outlined), label: 'attendence'),
+                icon: SvgPicture.asset("assets/images/scan.svg"),
+                activeIcon: SvgPicture.asset("assets/images/scan1.svg"),
+                label: 'Dashboard'),
+            BottomNavigationBarItem(
+                icon: SvgPicture.asset("assets/images/user.svg"),
+                activeIcon: SvgPicture.asset("assets/images/user1.svg"),
+                label: 'Dashboard')
           ],
         ),
       ),
       body: Swiper(
-        itemCount: 3,
+        itemCount: page.length,
         itemBuilder: (context, index) {
           return page[index];
         },

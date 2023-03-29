@@ -69,6 +69,17 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/iconscan.svg
+    - assets/images/c.svg
+    - assets/images/td.svg
+    - assets/images/tp.svg
+    - assets/images/user.svg
+    - assets/images/scan.svg
+    - assets/images/home.svg
+    - assets/images/stickynote.svg
+    - assets/images/user1.svg
+    - assets/images/scan1.svg
+    - assets/images/home1.svg
+    - assets/images/stickynote1.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

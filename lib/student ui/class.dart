@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../redux/data.dart';
 
@@ -94,11 +95,11 @@ class _ClassState extends State<Class> {
                       color: const Color(0xCA9AE1F6),
                       borderRadius: BorderRadius.circular(200)),
                   margin: const EdgeInsets.fromLTRB(5, 3, 5, 3),
-                  child: const SizedBox(
+                  child:  SizedBox(
                     height: 40,
                     width: 40,
-                    child:
-                        Icon(Icons.pie_chart_sharp, color: Colors.blueAccent),
+                    child:index==0?
+                        SvgPicture.asset("assets/images/c.svg"):SvgPicture.asset("assets/images/td.svg"),
                   ),
                 ),
                 Column(
@@ -110,8 +111,10 @@ class _ClassState extends State<Class> {
                         margin: const EdgeInsets.fromLTRB(15, 3, 15, 3),
                         child: Text(
                           '${Class[index]}',
-                          style: const TextStyle(fontSize: 20),
-                        )),
+                            style: const TextStyle(
+                              color: Color.fromRGBO(73, 92, 131, 1),
+                              fontSize: 15,
+                            ))),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -119,13 +122,15 @@ class _ClassState extends State<Class> {
                             margin: const EdgeInsets.fromLTRB(15, 3, 15, 3),
                             child: Text(
                               '${teacher[index]}',
-                              style: const TextStyle(fontSize: 15),
-                            )),
+                                style: const TextStyle(
+                                  color: Color.fromRGBO(73, 92, 131, 1),
+                                  fontSize: 15,
+                                ))),
                         Container(
-                            margin: const EdgeInsets.fromLTRB(15, 3, 15, 3),
+                            margin: const EdgeInsets.fromLTRB(15, 3, 3, 3),
                             child: Text('${time[index]}',
                                 style: const TextStyle(
-                                  color: Color(0xCA29C0EC),
+                                  color: Color.fromRGBO(73, 92, 131, 1),
                                   fontSize: 15,
                                 )))
                       ],

@@ -60,10 +60,6 @@ class _QRCodeScannerScreenState extends State<QRCodeScannerScreen> {
   QRViewController? controller;
   String qrText = '';
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
 
   @override
   void dispose() {
