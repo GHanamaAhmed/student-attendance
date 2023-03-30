@@ -6,7 +6,7 @@ class attndence extends StatefulWidget {
   @override
   State<attndence> createState() => _attndenceState();
 }
-
+List<String> Class2 = <String>['redaction siantific', 'app mobile', 'system information','graph theory'];
 class _attndenceState extends State<attndence> {
   @override
   Widget build(BuildContext context) {
@@ -71,9 +71,9 @@ class _attndenceState extends State<attndence> {
                       children: [
                         Center(
                           child: Container(
-                            margin: EdgeInsets.all(3),
-                            child: Text('class: 123' ,
-                              style:TextStyle(
+                            margin: const EdgeInsets.all(3),
+                            child: Text('class: ${Class2[index]}' ,
+                              style:const TextStyle(
                                 fontSize: 20
                               ) ,),
                           ),
@@ -84,13 +84,33 @@ class _attndenceState extends State<attndence> {
                             margin: const EdgeInsets.fromLTRB(15, 3, 15, 3),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: const [
+                              children:  [
                                 Icon(Icons.close ,
-                                  color: Color(0x4cff2424),),
-                                Icon(Icons.close,
-                                    color: Color(0x4cff2424)),
-                                Icon(Icons.close,
-                                    color: Color(0x4cff2424))
+                                  color: Color(
+                                          () {
+                                       if(index == 0 || index == 3){
+                                         return 0xfff51200;
+                                       }else{
+                                         return 0x4cff2424;
+                                       }
+                                      }()
+                                  ),),
+                                 Icon(Icons.close,
+                                    color: Color(                              () {
+                                      if(index == 0){
+                                        return 0xfff51200;
+                                      }else{
+                                        return 0x4cff2424;
+                                      }
+                                    }())),
+                                 Icon(Icons.close,
+                                    color: Color(                              () {
+                                      if(index == 4){
+                                        return 0xfff51200;
+                                      }else{
+                                        return 0x4cff2424;
+                                      }
+                                    }()))
                               ],
                             )
                         ),
@@ -106,7 +126,7 @@ class _attndenceState extends State<attndence> {
               thickness: 0,
               color: Colors.transparent,
             ),
-            itemCount: 6,
+            itemCount: Class2.length,
           ),
         ));
   }
