@@ -2,6 +2,7 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:skoni/teacher ui/Class.dart';
 import 'package:skoni/teacher%20ui/QrGen.dart';
+import 'package:skoni/teacher%20ui/att2.dart';
 class teacher_UI extends StatefulWidget {
   const teacher_UI({Key? key}) : super(key: key);
 
@@ -21,7 +22,7 @@ class _teacher_UIState extends State<teacher_UI> {
   }
 
   final SwiperController _controller = new SwiperController();
-  var page = [Class2(), QrGen()];
+  var page = [Class2(), QrGen(),attendi()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(

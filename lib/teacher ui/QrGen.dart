@@ -14,6 +14,20 @@ class QrGen extends StatefulWidget {
 class _QrGenState extends State<QrGen> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return  Scaffold(
+      body: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Center(
+            child: SizedBox(
+              width: 500,
+              height: 500,
+              child:Image.asset('assets/images/testqrcode.png') ,
+
+            ),
+          )
+        ],
+      ),
+    );
   }
 }
