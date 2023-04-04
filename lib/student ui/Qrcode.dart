@@ -64,7 +64,9 @@ class _QRCodeState extends State<QRCode> with TickerProviderStateMixin {
                     padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
                     backgroundColor: Colors.white,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+
+                  },
                   child: Text(
                     "Scan",
                     style: TextStyle(color: Colors.blueAccent, fontSize: 20),

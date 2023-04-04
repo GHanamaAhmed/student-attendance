@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:skoni/student%20ui/class.dart';
 import 'package:skoni/student%20ui/Qrcode.dart';
 import 'package:skoni/student%20ui/scanner.dart';
+import 'package:skoni/student%20ui/attendence.dart';
 import 'package:flutter_svg/svg.dart';
 
 class student_UI extends StatefulWidget {
@@ -45,7 +46,8 @@ class _student_UIState extends State<student_UI> {
           "/scanner": (context) => QRCodeScannerScreen(),
         },
       ),
-      Container()
+
+      attndence(),
     ];
     super.initState();
   }
@@ -72,19 +74,19 @@ class _student_UIState extends State<student_UI> {
             BottomNavigationBarItem(
                 icon: SvgPicture.asset("assets/images/home1.svg"),
                 activeIcon: SvgPicture.asset("assets/images/home.svg"),
-                label: 'Dashboard'),
+                label: 'home'),
             BottomNavigationBarItem(
                 icon: SvgPicture.asset("assets/images/stickynote.svg"),
                 activeIcon: SvgPicture.asset("assets/images/stickynote1.svg"),
-                label: 'Dashboard'),
+                label: 'add name'),
             BottomNavigationBarItem(
                 icon: SvgPicture.asset("assets/images/scan.svg"),
                 activeIcon: SvgPicture.asset("assets/images/scan1.svg"),
-                label: 'Dashboard'),
+                label: 'scan qr code'),
             BottomNavigationBarItem(
                 icon: SvgPicture.asset("assets/images/user.svg"),
                 activeIcon: SvgPicture.asset("assets/images/user1.svg"),
-                label: 'Dashboard')
+                label: 'attendence')
           ],
         ),
       ),

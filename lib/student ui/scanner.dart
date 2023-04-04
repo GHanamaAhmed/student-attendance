@@ -1,9 +1,6 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:redux/redux.dart';
 import 'package:skoni/student%20ui/session.dart';
@@ -11,6 +8,8 @@ import 'package:skoni/student%20ui/session.dart';
 import '../redux/data.dart';
 
 class QRCodeScannerScreen extends StatefulWidget {
+  const QRCodeScannerScreen({super.key});
+
   @override
   State<StatefulWidget> createState() => _QRCodeScannerScreenState();
 }
@@ -92,15 +91,17 @@ class _QRCodeScannerScreenState extends State<QRCodeScannerScreen> {
             flex: 5,
             child: QRView(
               key: qrKey,
+              overlay: QrScannerOverlayShape(
+                  borderColor: Colors.blue,
+                  borderRadius: 10,
+                  borderLength: 30,
+                  borderWidth: 10,
+                  cutOutSize: MediaQuery.of(context).size.width * 0.8
+              ),
               onQRViewCreated: _onQRViewCreated,
             ),
           ),
-          /* Expanded(
-            flex: 1,
-            child: Center(
-              child: Text('Scanned Text: $qrText'),
-            ),
-          ),*/
+
         ],
       ),
     );
