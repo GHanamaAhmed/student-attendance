@@ -44,6 +44,7 @@ dependencies:
   redux: ^5.0.0
   provider:
   qr_flutter: ^4.0.0
+  barcode_scan: ^3.0.1
 
 dev_dependencies:
   flutter_test:
@@ -81,6 +82,8 @@ flutter:
     - assets/images/scan1.svg
     - assets/images/home1.svg
     - assets/images/stickynote1.svg
+    - assets/images/ellipse5.svg
+    - assets/images/ellipse5.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

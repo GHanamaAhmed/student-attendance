@@ -5,6 +5,7 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:redux/redux.dart';
 import 'package:skoni/student%20ui/session.dart';
 import '../redux/data.dart';
+
 class QRCodeScannerScreen extends StatefulWidget {
   QRCodeScannerScreen({super.key});
 
@@ -33,8 +34,8 @@ class _QRCodeScannerScreenState extends State<QRCodeScannerScreen> {
       isvalid = true;
       Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => Session(
-                idroom: deresponse["data"]["idRoom"].toString(),
-              )));
+            idroom: deresponse["data"]["idRoom"].toString(),
+          )));
     }
   }
 
@@ -48,9 +49,9 @@ class _QRCodeScannerScreenState extends State<QRCodeScannerScreen> {
     controller?.dispose();
   }
 
-  void _onQRViewCreated(QRViewController controller) {
+  void _onQRViewCreated(QRViewController controller) async {
     this.controller = controller;
-    controller.scannedDataStream.listen((scanData) {
+    controller.scannedDataStream.listen((scanData) async {
       controller.pauseCamera();
       setState(() async {
         qrText = scanData.code!;
@@ -64,6 +65,7 @@ class _QRCodeScannerScreenState extends State<QRCodeScannerScreen> {
         }
       });
     });
+    await controller.resumeCamera();
   }
 
   @override
@@ -76,10 +78,10 @@ class _QRCodeScannerScreenState extends State<QRCodeScannerScreen> {
             child: QRView(
               key: qrKey,
               overlay: QrScannerOverlayShape(
-                  borderColor: Colors.blue,
-                  borderRadius: 10,
-                  borderLength: 30,
-                  borderWidth: 10,
+                borderColor: Colors.blue,
+                borderRadius: 10,
+                borderLength: 30,
+                borderWidth: 10,
               ),
               onQRViewCreated: _onQRViewCreated,
             ),
