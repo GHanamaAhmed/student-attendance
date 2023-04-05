@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -20,7 +19,6 @@ class _SessionState extends State<Session> {
   }
 
   dynamic getattandace() async {
-    print("ffffffffffffffffffffffffffffffffffffff");
     print(widget.idroom);
     var response;
     response = await http.get(

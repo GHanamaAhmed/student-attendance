@@ -4,11 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:redux/redux.dart';
 import 'package:skoni/student%20ui/session.dart';
-
 import '../redux/data.dart';
-
 class QRCodeScannerScreen extends StatefulWidget {
-  const QRCodeScannerScreen({super.key});
+  QRCodeScannerScreen({super.key});
 
   @override
   State<StatefulWidget> createState() => _QRCodeScannerScreenState();
@@ -30,21 +28,7 @@ class _QRCodeScannerScreenState extends State<QRCodeScannerScreen> {
         });
     var deresponse;
     deresponse = jsonDecode(respone.body);
-    if (!deresponse["res"]) {
-      controller?.dispose();
-      return (showDialog<String>(
-          context: context,
-          builder: (BuildContext context) => AlertDialog(
-                title: const Text('Worring'),
-                content: Text(deresponse["mes"]),
-                actions: <Widget>[
-                  TextButton(
-                    onPressed: () => Navigator.pop(context, 'Cancel'),
-                    child: const Text('Cancel'),
-                  )
-                ],
-              )));
-    } else {
+    if (deresponse["res"] == true) {
       // await Future.delayed(Duration(seconds: 1));
       isvalid = true;
       Navigator.of(context).push(MaterialPageRoute(
@@ -59,8 +43,6 @@ class _QRCodeScannerScreenState extends State<QRCodeScannerScreen> {
   QRViewController? controller;
   String qrText = '';
   @override
-
-  @override
   void dispose() {
     super.dispose();
     controller?.dispose();
@@ -70,13 +52,15 @@ class _QRCodeScannerScreenState extends State<QRCodeScannerScreen> {
     this.controller = controller;
     controller.scannedDataStream.listen((scanData) {
       controller.pauseCamera();
-      setState(() {
+      setState(() async {
         qrText = scanData.code!;
         joinroom(qrText);
-
+        await Future.delayed(Duration(seconds: 2));
         if (isvalid) {
           controller?.stopCamera();
           controller?.dispose();
+        }else{
+          controller.resumeCamera();
         }
       });
     });
@@ -96,12 +80,10 @@ class _QRCodeScannerScreenState extends State<QRCodeScannerScreen> {
                   borderRadius: 10,
                   borderLength: 30,
                   borderWidth: 10,
-                  cutOutSize: MediaQuery.of(context).size.width * 0.8
               ),
               onQRViewCreated: _onQRViewCreated,
             ),
           ),
-
         ],
       ),
     );
