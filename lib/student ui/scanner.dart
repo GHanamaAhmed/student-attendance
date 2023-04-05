@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-import 'package:redux/redux.dart';
 import 'package:skoni/student%20ui/session.dart';
 import '../redux/data.dart';
 
@@ -40,7 +39,6 @@ class _QRCodeScannerScreenState extends State<QRCodeScannerScreen> {
   }
 
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
-  late final Store<Student> store;
   QRViewController? controller;
   String qrText = '';
   @override

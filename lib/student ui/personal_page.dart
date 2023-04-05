@@ -23,16 +23,15 @@ class _PersonState extends State<Person> {
             Container(
               padding: EdgeInsets.all(2),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(380),
-                border:Border.all(width: 2,color: Color.fromRGBO(204, 204, 204, 1))
-              ),
+                  borderRadius: BorderRadius.circular(380),
+                  border: Border.all(
+                      width: 2, color: Color.fromRGBO(204, 204, 204, 1))),
               child: Container(
                 child: Image.asset("assets/images/ellipse5.png"),
                 alignment: AlignmentDirectional.center,
                 decoration: BoxDecoration(
                     color: Color.fromRGBO(204, 204, 204, 1),
-                    borderRadius: BorderRadius.circular(380)
-                ),
+                    borderRadius: BorderRadius.circular(380)),
                 padding: EdgeInsets.all(15),
                 width: 110,
               ),
@@ -46,20 +45,44 @@ class _PersonState extends State<Person> {
               children: [
                 Column(
                   children: [
-                    Text(Student.specialist.toString(),style: TextStyle(color:  Color.fromRGBO(73, 92, 131, 1),fontSize: 17)),
-                    Text("Specialiste",style: TextStyle(color: Color.fromRGBO(204, 204, 204, 1),fontSize: 17),)
+                    Text(Student.specialist.toString(),
+                        style: TextStyle(
+                            color: Color.fromRGBO(73, 92, 131, 1),
+                            fontSize: 17)),
+                    Text(
+                      "Specialiste",
+                      style: TextStyle(
+                          color: Color.fromRGBO(204, 204, 204, 1),
+                          fontSize: 17),
+                    )
                   ],
                 ),
                 Column(
                   children: [
-                    Text(Student.department.toString(),style: TextStyle(color:  Color.fromRGBO(73, 92, 131, 1),fontSize: 17)),
-                    Text("Departement",style: TextStyle(color: Color.fromRGBO(204, 204, 204, 1),fontSize: 17),)
+                    Text(Student.department.toString(),
+                        style: TextStyle(
+                            color: Color.fromRGBO(73, 92, 131, 1),
+                            fontSize: 17)),
+                    Text(
+                      "Departement",
+                      style: TextStyle(
+                          color: Color.fromRGBO(204, 204, 204, 1),
+                          fontSize: 17),
+                    )
                   ],
                 ),
                 Column(
                   children: [
-                    Text(Student.faculte.toString(),style: TextStyle(color:  Color.fromRGBO(73, 92, 131, 1),fontSize: 17)),
-                    Text("Faculte",style: TextStyle(color: Color.fromRGBO(204, 204, 204, 1),fontSize: 17),)
+                    Text(Student.faculte.toString(),
+                        style: TextStyle(
+                            color: Color.fromRGBO(73, 92, 131, 1),
+                            fontSize: 17)),
+                    Text(
+                      "Faculte",
+                      style: TextStyle(
+                          color: Color.fromRGBO(204, 204, 204, 1),
+                          fontSize: 17),
+                    )
                   ],
                 )
               ],

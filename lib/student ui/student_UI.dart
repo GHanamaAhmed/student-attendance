@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:skoni/student%20ui/class.dart';
 import 'package:skoni/student%20ui/Qrcode.dart';
+import 'package:skoni/student%20ui/personal_page.dart';
 import 'package:skoni/student%20ui/scanner.dart';
 import 'package:skoni/student%20ui/attendence.dart';
 import 'package:flutter_svg/svg.dart';
@@ -35,7 +36,15 @@ class _student_UIState extends State<student_UI> {
   void initState() {
     // TODO: implement initState
     page = [
-      Class(),
+      MaterialApp(
+        debugShowCheckedModeBanner: false,
+        initialRoute: "/home",
+        navigatorKey: key1,
+        routes: {
+          "/home": (context) => Class(),
+          "/attandance": (context) => Person(),
+        },
+      ),
       Container(),
       MaterialApp(
         debugShowCheckedModeBanner: false,

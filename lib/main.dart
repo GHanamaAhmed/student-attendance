@@ -34,7 +34,6 @@ class _MyAppState extends State<MyApp> {
         '/signin': (context) => const Signin(),
         '/student ui': (context) =>const student_UI(),
         '/teacher ui': (context) => const teacher_UI(),
-        '/person':(context) => Person()
 //        '/teacher ui/home': (context) => Home(),
         //       '/teacher ui/scanner': (context) => QRScannerOverlay(overlayColour: Colors.white30),
       },
