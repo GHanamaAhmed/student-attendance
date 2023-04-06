@@ -15,6 +15,7 @@ class _QRCodeState extends State<QRCode> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xeaffffff),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

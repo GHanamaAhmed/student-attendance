@@ -43,6 +43,7 @@ dependencies:
   qr_code_scanner: ^1.0.1
   provider:
   qr_flutter: ^4.0.0
+  intl: ^0.18.0
 
 dev_dependencies:
   flutter_test:
@@ -82,6 +83,8 @@ flutter:
     - assets/images/stickynote1.svg
     - assets/images/ellipse5.svg
     - assets/images/ellipse5.png
+    - assets/images/icon _user octagon.svg
+    - assets/images/logout.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

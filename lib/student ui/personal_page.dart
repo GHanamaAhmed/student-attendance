@@ -9,10 +9,41 @@ class Person extends StatefulWidget {
   State<Person> createState() => _PersonState();
 }
 
+String faculte = Student.faculte;
+String departement = Student.department;
+String specialist = Student.specialist;
+
 class _PersonState extends State<Person> {
+  void spl() {
+    List<String> words = Student.faculte.split(" ");
+
+    if (words.isNotEmpty) {
+      faculte = "${words.first[0]}${words.last[0]}";
+    }
+    words = Student.department.split(" ");
+
+    if (words.isNotEmpty) {
+      departement = "${words.first[0]}${words.last[0]}";
+    }
+    words = Student.specialist.split(" ");
+
+    if (words.isNotEmpty) {
+      specialist = "${words.first[0]}${words.last[0]}";
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    spl();
+    print(Student.faculte);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xeaffffff),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -35,17 +66,24 @@ class _PersonState extends State<Person> {
                 padding: EdgeInsets.all(15),
                 width: 110,
               ),
+              margin: EdgeInsets.all(20),
             ),
-            FractionallySizedBox(
-              widthFactor: 0.9,
-              child: Divider(color: Color.fromRGBO(204, 204, 204, 1)),
-            ),
+            Text("${Student.lastName} ${Student.firstName}",
+                style: TextStyle(
+                    fontSize: 30, color: Color.fromRGBO(73, 92, 131, 1))),
+           Container(
+             margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
+             child:  FractionallySizedBox(
+                 widthFactor: 0.9,
+                 child: Divider(color: Color.fromRGBO(204, 204, 204, 1)),
+
+           )),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Column(
                   children: [
-                    Text(Student.specialist.toString(),
+                    Text(specialist,
                         style: TextStyle(
                             color: Color.fromRGBO(73, 92, 131, 1),
                             fontSize: 17)),
@@ -59,7 +97,7 @@ class _PersonState extends State<Person> {
                 ),
                 Column(
                   children: [
-                    Text(Student.department.toString(),
+                    Text(departement,
                         style: TextStyle(
                             color: Color.fromRGBO(73, 92, 131, 1),
                             fontSize: 17)),
@@ -73,7 +111,7 @@ class _PersonState extends State<Person> {
                 ),
                 Column(
                   children: [
-                    Text(Student.faculte.toString(),
+                    Text(faculte,
                         style: TextStyle(
                             color: Color.fromRGBO(73, 92, 131, 1),
                             fontSize: 17)),
@@ -82,10 +120,43 @@ class _PersonState extends State<Person> {
                       style: TextStyle(
                           color: Color.fromRGBO(204, 204, 204, 1),
                           fontSize: 17),
-                    )
+                    ),
                   ],
+
                 )
               ],
+            ),
+            Container(
+              margin: EdgeInsets.fromLTRB(0, 30, 0, 30),
+              child: FractionallySizedBox(
+                widthFactor: 0.8,
+                child: Container(
+                  margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                  padding: EdgeInsets.fromLTRB(30, 20, 30, 20),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SvgPicture.asset("assets/images/icon _user octagon.svg",width: 50),
+                          Text("User managment",style: TextStyle(color: Color.fromRGBO(73, 92, 131, 1),fontWeight: FontWeight.w500),)
+                        ],
+                      ),Container(margin: EdgeInsets.fromLTRB(0, 15, 15, 0)),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SvgPicture.asset("assets/images/logout.svg",width: 50),
+                          Text("Logout",style: TextStyle(color: Color.fromRGBO(73, 92, 131, 1),fontWeight: FontWeight.w500),)
+                        ],
+                      )
+                    ],
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10)
+                  ),
+                ),
+              ),
             )
           ],
         ),

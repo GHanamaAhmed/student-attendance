@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:skoni/signin/signin.dart';
 import 'package:skoni/signup/signup.dart';
 import 'package:flutter/services.dart';
-import 'package:skoni/student%20ui/personal_page.dart';
 import 'package:skoni/student%20ui/student_UI.dart';
 import 'package:skoni/teacher%20ui/teacher_UI.dart';
 

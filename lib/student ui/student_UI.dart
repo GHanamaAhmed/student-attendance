@@ -1,6 +1,7 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:skoni/student%20ui/attendence1.dart';
 import 'package:skoni/student%20ui/class.dart';
 import 'package:skoni/student%20ui/Qrcode.dart';
 import 'package:skoni/student%20ui/personal_page.dart';
@@ -36,16 +37,8 @@ class _student_UIState extends State<student_UI> {
   void initState() {
     // TODO: implement initState
     page = [
-      MaterialApp(
-        debugShowCheckedModeBanner: false,
-        initialRoute: "/home",
-        navigatorKey: key1,
-        routes: {
-          "/home": (context) => Class(),
-          "/attandance": (context) => Person(),
-        },
-      ),
-      Container(),
+      Class(),
+      Attendence(),
       MaterialApp(
         debugShowCheckedModeBanner: false,
         initialRoute: "/qrcode",
@@ -55,8 +48,7 @@ class _student_UIState extends State<student_UI> {
           "/scanner": (context) => QRCodeScannerScreen(),
         },
       ),
-
-      attndence(),
+      Person(),
     ];
     super.initState();
   }
