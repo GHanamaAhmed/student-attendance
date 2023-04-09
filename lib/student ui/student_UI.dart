@@ -79,7 +79,7 @@ class _student_UIState extends State<student_UI> {
             BottomNavigationBarItem(
                 icon: SvgPicture.asset("assets/images/stickynote.svg"),
                 activeIcon: SvgPicture.asset("assets/images/stickynote1.svg"),
-                label: 'add name'),
+                label: 'Attendance'),
             BottomNavigationBarItem(
                 icon: SvgPicture.asset("assets/images/scan.svg"),
                 activeIcon: SvgPicture.asset("assets/images/scan1.svg"),
@@ -87,7 +87,7 @@ class _student_UIState extends State<student_UI> {
             BottomNavigationBarItem(
                 icon: SvgPicture.asset("assets/images/user.svg"),
                 activeIcon: SvgPicture.asset("assets/images/user1.svg"),
-                label: 'attendence')
+                label: 'profil')
           ],
         ),
       ),
