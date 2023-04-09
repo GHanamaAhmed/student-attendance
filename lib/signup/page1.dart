@@ -165,7 +165,7 @@ class _Page1State extends State<Page1> {
                             : BorderSide(color: Colors.blueAccent, width: 2)),
                     hintStyle:
                         TextStyle(color: Color.fromRGBO(73, 69, 79, 0.7)),
-                    hintText: "Select",
+                    hintText: "Student or Teacher",
                     filled: true,
                     fillColor: Color.fromRGBO(245, 245, 245, 0.6)),
 
