@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:io';
 import 'package:skoni/student%20ui/student_UI.dart';
-
+import 'package:hive/hive.dart';
 import '../redux/data.dart';
 
 class Signin extends StatefulWidget {
@@ -16,6 +16,7 @@ class Signin extends StatefulWidget {
 class _SigninState extends State<Signin> with TickerProviderStateMixin {
   late AnimationController controller;
   late Animation<Offset> offset;
+  var user = Hive.box("user");
   Future<void> checked() async {
     try {
       final result = await InternetAddress.lookup('example.com');
@@ -58,6 +59,10 @@ class _SigninState extends State<Signin> with TickerProviderStateMixin {
   void initState() {
     // TODO: implement initState
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      autoSignIn();
+    });
+
     controller = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 200));
 
@@ -152,16 +157,18 @@ class _SigninState extends State<Signin> with TickerProviderStateMixin {
                     )
                   ],
                 )));*/
-        Student.setstudent(
-            deresponse["data"]["firstname"].toString(),
-            deresponse["data"]["lastname"].toString(),
-            deresponse["data"]["sex"].toString(),
-            deresponse["data"]["email"].toString(),
-            deresponse["data"]["password"].toString(),
-            deresponse["data"]["faculte"].toString(),
-            deresponse["data"]["department"].toString(),
-            deresponse["data"]["specialist"].toString(),
-            deresponse["data"]["year"].toString());
+
+        late Student student = new Student(
+            firstName: deresponse["data"]["firstname"].toString(),
+            lastName: deresponse["data"]["lastname"].toString(),
+            sex: deresponse["data"]["sex"].toString(),
+            email: deresponse["data"]["email"].toString(),
+            password: deresponse["data"]["password"].toString(),
+            faculte: deresponse["data"]["faculte"].toString(),
+            department: deresponse["data"]["department"].toString(),
+            specialist: deresponse["data"]["specialist"].toString(),
+            year: deresponse["data"]["year"].toString());
+        await user.put("user", student);
         Navigator.of(context)
             .push(MaterialPageRoute(builder: (context) => const student_UI()));
       }
@@ -181,6 +188,13 @@ class _SigninState extends State<Signin> with TickerProviderStateMixin {
                   )
                 ],
               )));
+    }
+  }
+
+  void autoSignIn() {
+    if (user.get("user")!.email != "") {
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => const student_UI()));
     }
   }
 

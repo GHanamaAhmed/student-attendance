@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -15,11 +16,13 @@ class Attendence extends StatefulWidget {
 class _AttendenceState extends State<Attendence> {
   List<Map<String, dynamic>> teacher = [];
   String time = "";
+  var user = Hive.box("user");
   String getTime(String dateTimeString) {
     DateTime dateTime = DateTime.parse(dateTimeString);
     String time = DateFormat.jm().format(dateTime);
     return time;
   }
+
   dynamic joinroom() async {
     var response = await http.post(
         Uri.parse("https://simpleapi-p29y.onrender.com/student/attandance"),
@@ -27,8 +30,8 @@ class _AttendenceState extends State<Attendence> {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: {
-          "email": Student.email.toString(),
-          "password": Student.password.toString(),
+          "email": user.get("user")!.email,
+          "password": user.get("user")!.password,
         });
 
     var decodedResponse = jsonDecode(response.body);
@@ -39,14 +42,18 @@ class _AttendenceState extends State<Attendence> {
     });
   }
 
+  String username = "";
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    username = "${user.get("user")!.lastName} ${user.get("user")!.firstName}";
     joinroom();
+    setState(() {
+
+    });
   }
 
-  String username = "${Student.lastName} ${Student.firstName}";
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -126,15 +133,17 @@ class _AttendenceState extends State<Attendence> {
                                                     73, 92, 131, 1),
                                                 fontSize: 15,
                                               ))),
-                                      Text("|",style: const TextStyle(
-                                        color: Color.fromRGBO(
-                                            73, 92, 131, 1),
-                                        fontSize: 15,
-                                      )),
+                                      Text("|",
+                                          style: const TextStyle(
+                                            color:
+                                                Color.fromRGBO(73, 92, 131, 1),
+                                            fontSize: 15,
+                                          )),
                                       Container(
                                           margin: const EdgeInsets.fromLTRB(
                                               15, 3, 3, 3),
-                                          child: Text('${DateFormat('hh:mm a').format(DateTime.parse(e["createAt"]))}',
+                                          child: Text(
+                                              '${DateFormat('hh:mm a').format(DateTime.parse(e["createAt"]))}',
                                               style: const TextStyle(
                                                 color: Color.fromRGBO(
                                                     73, 92, 131, 1),

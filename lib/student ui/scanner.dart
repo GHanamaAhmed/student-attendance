@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -15,6 +16,7 @@ class QRCodeScannerScreen extends StatefulWidget {
 class _QRCodeScannerScreenState extends State<QRCodeScannerScreen> {
   bool isvalid = false;
   dynamic joinroom(String qrcode) async {
+    var user =await Hive.box("user");
     var respone;
     respone = await http.post(
         Uri.parse("https://simpleapi-p29y.onrender.com/student/joinroom"),
@@ -22,8 +24,8 @@ class _QRCodeScannerScreenState extends State<QRCodeScannerScreen> {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: {
-          "email": Student.email.toString(),
-          "password": Student.password.toString(),
+          "email": user.get("user")!.email,
+          "password":user.get("user")!.password,
           "qrcode": qrcode
         });
     var deresponse;

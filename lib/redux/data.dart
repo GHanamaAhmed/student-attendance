@@ -1,39 +1,26 @@
+import 'package:hive/hive.dart';
+part 'data.g.dart';
 
-class Student {
-  static String firstName = "";
-  static String lastName = "";
-  static String sex = "";
-  static String email = "";
-  static String password = "";
-  static String faculte = "";
-  static String department = "";
-  static String specialist = "";
-  static String year = "";
+@HiveType(typeId: 0)
+class Student extends HiveObject{
+  @HiveField(0)
+  String firstName = "";
+  @HiveField(1)
+  String lastName = "";
+  @HiveField(2)
+  String sex = "";
+  @HiveField(3)
+  String email = "";
+  @HiveField(4)
+  String password = "";
+  @HiveField(5)
+  String faculte = "";
+  @HiveField(6)
+  String department = "";
+  @HiveField(7)
+  String specialist = "";
+  @HiveField(8)
+  String year = "";
 
- static dynamic setstudent(String f, String l, String s, String e, String p,
-      String fa, String d, String sp, String y) {
-    firstName = f;
-    lastName = l;
-    sex = s;
-    email = e;
-    password = p;
-    faculte = fa;
-    department = d;
-    specialist = sp;
-    year = y;
-  }
-
- static dynamic getstudent() {
-    return {
-      "firstName": firstName,
-      "lastName": lastName,
-      "sex": sex,
-      "email": email,
-      "password": password,
-      "faculte": faculte,
-      "department": department,
-      "specialist": specialist,
-      "year": year
-    };
-  }
+  Student({required this.firstName,required this.lastName,required this.sex,required this.specialist,required this.department,required this.faculte,required this.password,required this.email,required this.year});
 }

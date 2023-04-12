@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/services.dart';
@@ -38,6 +39,7 @@ class Page3 extends StatefulWidget {
 }
 
 class _Page1State extends State<Page3> {
+  var user=Hive.box("user");
   @override
   void initState() {
     // TODO: implement initState
@@ -186,6 +188,7 @@ class _Page1State extends State<Page3> {
             "year": widget.year.value,
             "code": _controller.text.toString()
           });
+
     } else {
       respose = await http.post(
           Uri.parse("https://simpleapi-p29y.onrender.com/teacher/signup"),

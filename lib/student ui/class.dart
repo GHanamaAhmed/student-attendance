@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hive/hive.dart';
 
 import '../redux/data.dart';
 
@@ -12,7 +13,20 @@ class Class extends StatefulWidget {
 
 class _ClassState extends State<Class> {
   List<String> entries = <String>['A', 'B', 'C'];
-  String username = "${Student.lastName} ${Student.firstName}";
+  var user = Hive.box("user");
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setState(() {
+      setuserName();
+    });
+  }
+  String username = "";
+  Future<void> setuserName() async {
+    print(user.get("user")!.lastName);
+    username = "${user.get("user")!.lastName} ${user.get("user")!.firstName}";
+  }
   List<Map<String, String>> teacher = <Map<String, String>>[
     {
       "name": 'Ahmed ghanama',
@@ -76,21 +90,24 @@ class _ClassState extends State<Class> {
           children: [
             Center(
                 child: FractionallySizedBox(
-                  widthFactor: 0.8,
+                    widthFactor: 0.8,
                     child: Container(
-              margin: EdgeInsets.fromLTRB(0, 20, 0, 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("Today’s classes",
-                      style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.w500,
-                          color: Color.fromRGBO(73, 92, 131, 1))),
-                  Text("All",style: TextStyle(fontSize: 18),)
-                ],
-              ),
-            ))),
+                      margin: EdgeInsets.fromLTRB(0, 20, 0, 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Today’s classes",
+                              style: TextStyle(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.w500,
+                                  color: Color.fromRGBO(73, 92, 131, 1))),
+                          Text(
+                            "All",
+                            style: TextStyle(fontSize: 18),
+                          )
+                        ],
+                      ),
+                    ))),
             Center(
               child: Column(
                 children: teacher
@@ -113,10 +130,13 @@ class _ClassState extends State<Class> {
                                     width: 40,
                                     child: e['type'] == 'c'
                                         ? SvgPicture.asset(
-                                            "assets/images/c.svg",)
-                                        :e['type']=='td'? SvgPicture.asset(
-                                            "assets/images/td.svg"):SvgPicture.asset(
-                                        "assets/images/tp.svg"),
+                                            "assets/images/c.svg",
+                                          )
+                                        : e['type'] == 'td'
+                                            ? SvgPicture.asset(
+                                                "assets/images/td.svg")
+                                            : SvgPicture.asset(
+                                                "assets/images/tp.svg"),
                                   ),
                                 ),
                                 Column(
