@@ -16,7 +16,7 @@ class Signin extends StatefulWidget {
 class _SigninState extends State<Signin> with TickerProviderStateMixin {
   late AnimationController controller;
   late Animation<Offset> offset;
-  var user = Hive.box("user");
+   var user = Hive.box("user");
   Future<void> checked() async {
     try {
       final result = await InternetAddress.lookup('example.com');
@@ -192,7 +192,7 @@ class _SigninState extends State<Signin> with TickerProviderStateMixin {
   }
 
   void autoSignIn() {
-    if (user.get("user")!.email != "") {
+    if (user.get("user")!=null) {
       Navigator.of(context)
           .push(MaterialPageRoute(builder: (context) => const student_UI()));
     }

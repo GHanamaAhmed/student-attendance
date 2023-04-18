@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hive/hive.dart';
 import 'package:skoni/redux/data.dart';
+import 'package:skoni/student%20ui/userManagment.dart';
 
 class Person extends StatefulWidget {
   const Person({Key? key}) : super(key: key);
@@ -11,6 +12,7 @@ class Person extends StatefulWidget {
 }
 
 class _PersonState extends State<Person> {
+  ValueNotifier<bool> isClick = ValueNotifier<bool>(false);
   var user = Hive.box("user");
   late String faculte;
   late String departement;
@@ -53,6 +55,7 @@ class _PersonState extends State<Person> {
     return Scaffold(
       backgroundColor: const Color(0xeaffffff),
       body: Center(
+          child: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -147,12 +150,44 @@ class _PersonState extends State<Person> {
                           SvgPicture.asset(
                               "assets/images/icon _user octagon.svg",
                               width: 50),
-                          Text(
-                            "User managment",
-                            style: TextStyle(
-                                color: Color.fromRGBO(73, 92, 131, 1),
-                                fontWeight: FontWeight.w500),
-                          )
+                          GestureDetector(
+                              onTap: () {
+                                showDialog<String>(
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        AlertDialog(
+                                          scrollable: true,
+                                          title:
+                                              const Text('Exit confirmation'),
+                                          content:
+                                              UserManagment(isClick: isClick),
+                                          actions: <Widget>[
+                                            TextButton(
+                                              onPressed: () => Navigator.pop(
+                                                  context, 'Cancel'),
+                                              child: const Text('Cancel'),
+                                            ),
+                                            TextButton(
+                                              onPressed: () {
+                                                setState(() {
+                                                  isClick.value
+                                                      ? isClick.value = false
+                                                      : isClick.value = true;
+                                                  isClick.value =
+                                                      !isClick.value;
+                                                });
+                                              },
+                                              child: const Text('Update'),
+                                            )
+                                          ],
+                                        ));
+                              },
+                              child: Text(
+                                "User managment",
+                                style: TextStyle(
+                                    color: Color.fromRGBO(73, 92, 131, 1),
+                                    fontWeight: FontWeight.w500),
+                              )),
                         ],
                       ),
                       Container(margin: EdgeInsets.fromLTRB(0, 15, 15, 0)),
@@ -163,25 +198,32 @@ class _PersonState extends State<Person> {
                               width: 50),
                           GestureDetector(
                               onTap: () {
-                                user.deleteAll(user.keys);
                                 showDialog<String>(
                                     context: context,
-                                    builder: (BuildContext context) => AlertDialog(
-                                      title: const Text('Exit confirmation'),
-                                      content: Text("Do tou want to exit?"),
-                                      actions: <Widget>[
-                                        TextButton(
-                                          onPressed: () => Navigator.pop(context, 'Cancel'),
-                                          child: const Text('NO'),
-                                        ),TextButton(
-                                          onPressed: (){
-                                            Navigator.pushNamedAndRemoveUntil(
-                                                context, "/signin", (route) => false);
-                                          },
-                                          child: const Text('Yes'),
-                                        )
-                                      ],
-                                    ));
+                                    builder: (BuildContext context) =>
+                                        AlertDialog(
+                                          title:
+                                              const Text('Exit confirmation'),
+                                          content: Text("Do tou want to exit?"),
+                                          actions: <Widget>[
+                                            TextButton(
+                                              onPressed: () => Navigator.pop(
+                                                  context, 'Cancel'),
+                                              child: const Text('NO'),
+                                            ),
+                                            TextButton(
+                                              onPressed: () {
+                                                user.delete("user");
+                                                Navigator
+                                                    .pushNamedAndRemoveUntil(
+                                                        context,
+                                                        "/signin",
+                                                        (route) => false);
+                                              },
+                                              child: const Text('Yes'),
+                                            )
+                                          ],
+                                        ));
                               },
                               child: Text(
                                 "Logout",
@@ -201,7 +243,7 @@ class _PersonState extends State<Person> {
             )
           ],
         ),
-      ),
+      )),
     );
   }
 }

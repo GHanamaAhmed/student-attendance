@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hive/hive.dart';
-
+import 'package:socket_io_client/socket_io_client.dart' as IO;
 import '../redux/data.dart';
+import 'package:badges/badges.dart' as badge;
 
 class Class extends StatefulWidget {
   const Class({Key? key}) : super(key: key);
@@ -12,62 +13,116 @@ class Class extends StatefulWidget {
 }
 
 class _ClassState extends State<Class> {
+  late IO.Socket socket;
+  int count = 0;
   List<String> entries = <String>['A', 'B', 'C'];
   var user = Hive.box("user");
   @override
   void initState() {
     // TODO: implement initState
-    super.initState();
     setState(() {
       setuserName();
     });
+    initSocket();
+    super.initState();
   }
+
   String username = "";
   Future<void> setuserName() async {
     print(user.get("user")!.lastName);
     username = "${user.get("user")!.lastName} ${user.get("user")!.firstName}";
   }
+
   List<Map<String, String>> teacher = <Map<String, String>>[
     {
-      "name": 'Ahmed ghanama',
+      "name": 'ghanama',
       "class": "redaction siantific",
       "time": "8:00-9:30",
       "type": "c"
     },
     {
-      "name": 'ahmed elmasri',
+      "name": 'elmasri',
       "class": 'app mobile',
       "time": '9:30-11:00',
       "type": "td"
     },
     {
-      "name": 'rabah abellache',
+      "name": 'abellache',
       "class": 'system information',
       "time": '11:00-12:30',
       "type": "tp"
     },
     {
-      "name": 'zakaria moulay lkhader',
+      "name": 'moulay lkhader',
       "class": 'graph theory',
       "time": '2:00-3:30',
       "type": "td"
     },
   ];
+  initSocket() {
+    socket =
+        IO.io('https://simpleapi-p29y.onrender.com/students', <String, dynamic>{
+      'autoConnect': false,
+      'transports': ['websocket'],
+      "auth": {
+        "email": user!.get("user")!.email.toString(),
+        "password": user!.get("user")!.password.toString(),
+      },
+    });
+    socket.connect();
+    socket.onConnect((_) {
+      print('connect');
+      print(socket.id);
+    });
+    socket.emit("join-specialist", {
+      "specialist": user.get("user").specialist.toString(),
+    });
+    socket.on("create-room", (res) {
+      setState(() {
+        print(res);
+        count++;
+      });
+    });
+    /*socket.on("message", (data) {
+      print(data.toString());
+    });*/
+    socket.onDisconnect((_) => print('disconnect'));
+    socket.on('fromServer', (_) => print(_));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: PreferredSize(
-          preferredSize: const Size(10, 150),
+          preferredSize: const Size(10, 100),
           child: AppBar(
             title: Text(username),
             actions: [
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.notifications),
-                iconSize: 40,
+              Container(
+                margin: const EdgeInsets.fromLTRB(0, 0, 30, 0),
+                child: Center(
+                  child: badge.Badge(
+                    position: badge.BadgePosition.topEnd(top: 5, end: 3),
+                    badgeStyle: badge.BadgeStyle(
+                        padding: const EdgeInsets.all(5),
+                        borderRadius: BorderRadius.circular(10),
+                        badgeColor:count==0? Colors.transparent:Colors.red),
+                    badgeContent:count!=0?
+                        Text("${count}", style: TextStyle(color: Colors.white)):Text(""),
+                    child: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          count = 0;
+                        });
+                      },
+                      icon: const Icon(Icons.notifications,
+                          color: Colors.white, size: 40),
+                    ),
+                  ),
+                ),
               )
             ],
-            toolbarHeight: 150,
+            toolbarHeight: 100,
             elevation: 0,
             leading: const Padding(
               padding: EdgeInsets.all(8.1),
@@ -124,7 +179,7 @@ class _ClassState extends State<Class> {
                                   decoration: BoxDecoration(
                                       color: const Color(0xCA9AE1F6),
                                       borderRadius: BorderRadius.circular(200)),
-                                  margin: const EdgeInsets.fromLTRB(5, 3, 5, 3),
+                                  margin: const EdgeInsets.fromLTRB(0, 3, 0, 3),
                                   child: SizedBox(
                                     height: 40,
                                     width: 40,
@@ -145,7 +200,7 @@ class _ClassState extends State<Class> {
                                   children: [
                                     Container(
                                         margin: const EdgeInsets.fromLTRB(
-                                            15, 3, 15, 3),
+                                            15, 3, 0, 3),
                                         child: Text('${e["class"]}',
                                             style: const TextStyle(
                                               color: Color.fromRGBO(

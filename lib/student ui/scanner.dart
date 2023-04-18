@@ -4,8 +4,6 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:skoni/student%20ui/session.dart';
-import '../redux/data.dart';
-
 class QRCodeScannerScreen extends StatefulWidget {
   QRCodeScannerScreen({super.key});
 

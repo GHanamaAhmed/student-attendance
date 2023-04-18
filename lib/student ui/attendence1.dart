@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
 import '../redux/data.dart';
-
+import 'package:socket_io_client/socket_io_client.dart' as IO;
 class Attendence extends StatefulWidget {
   const Attendence({Key? key}) : super(key: key);
 
@@ -16,13 +16,40 @@ class Attendence extends StatefulWidget {
 class _AttendenceState extends State<Attendence> {
   List<Map<String, dynamic>> teacher = [];
   String time = "";
+  late IO.Socket socket;
   var user = Hive.box("user");
   String getTime(String dateTimeString) {
     DateTime dateTime = DateTime.parse(dateTimeString);
     String time = DateFormat.jm().format(dateTime);
     return time;
   }
-
+  initSocket() {
+    socket =
+        IO.io('https://simpleapi-p29y.onrender.com/students', <String, dynamic>{
+          'autoConnect': false,
+          'transports': ['websocket'],
+          "auth": {
+            "email": user!.get("user")!.email.toString(),
+            "password": user!.get("user")!.password.toString(),
+          },
+        });
+    socket.connect();
+    socket.onConnect((_) {
+      print('connect');
+      print(socket.id);
+    });
+    socket.emit("join-r", {
+      "email": user!.get("user")!.firstName.toString()
+    });
+    socket.on("add-r", (res) {
+      print(res);
+    });
+    /*socket.on("message", (data) {
+      print(data.toString());
+    });*/
+    socket.onDisconnect((_) => print('disconnect'));
+    socket.on('fromServer', (_) => print(_));
+  }
   dynamic joinroom() async {
     var response = await http.post(
         Uri.parse("https://simpleapi-p29y.onrender.com/student/attandance"),
@@ -41,17 +68,23 @@ class _AttendenceState extends State<Attendence> {
       }
     });
   }
-
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    socket.disconnect();
+    socket.dispose();
+    super.dispose();
+  }
   String username = "";
   @override
   void initState() {
     // TODO: implement initState
-    super.initState();
-    username = "${user.get("user")!.lastName} ${user.get("user")!.firstName}";
-    joinroom();
     setState(() {
-
+      username = "${user.get("user")!.lastName} ${user.get("user")!.firstName}";
+      joinroom();
+      initSocket();
     });
+    super.initState();
   }
 
   @override
@@ -59,7 +92,7 @@ class _AttendenceState extends State<Attendence> {
     return Container(
       decoration: BoxDecoration(color: const Color(0xeaffffff)),
       child: SafeArea(
-          child: Column(
+          child:SingleChildScrollView(child: Column(
         children: [
           Container(
             margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
@@ -162,6 +195,6 @@ class _AttendenceState extends State<Attendence> {
           ),
         ],
       )),
-    );
+    ));
   }
 }

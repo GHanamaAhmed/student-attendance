@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "960212867626",
+    "project_id": "wise-groove-380300",
+    "storage_bucket": "wise-groove-380300.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:960212867626:android:28d40a031128fe3d440153",
+        "android_client_info": {
+          "package_name": "com.skoni.crow.ghanama.ss.skoni"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "960212867626-g9l25ar24va2prn9qjqk9e4qdgd2j2da.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDfiuTn49oTMEKEG856DVWB_s5d3vkcgl4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "960212867626-g9l25ar24va2prn9qjqk9e4qdgd2j2da.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
