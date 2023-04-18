@@ -86,8 +86,16 @@ class _ClassState extends State<Class> {
     /*socket.on("message", (data) {
       print(data.toString());
     });*/
-    socket.onDisconnect((_) => print('disconnect'));
+    socket.onDisconnect((_) => print('disconnect class'));
     socket.on('fromServer', (_) => print(_));
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    socket.disconnect();
+    socket.dispose();
+    super.dispose();
   }
 
   @override
@@ -106,9 +114,12 @@ class _ClassState extends State<Class> {
                     badgeStyle: badge.BadgeStyle(
                         padding: const EdgeInsets.all(5),
                         borderRadius: BorderRadius.circular(10),
-                        badgeColor:count==0? Colors.transparent:Colors.red),
-                    badgeContent:count!=0?
-                        Text("${count}", style: TextStyle(color: Colors.white)):Text(""),
+                        badgeColor:
+                            count == 0 ? Colors.transparent : Colors.red),
+                    badgeContent: count != 0
+                        ? Text("${count}",
+                            style: TextStyle(color: Colors.white))
+                        : Text(""),
                     child: IconButton(
                       onPressed: () {
                         setState(() {
@@ -124,11 +135,12 @@ class _ClassState extends State<Class> {
             ],
             toolbarHeight: 100,
             elevation: 0,
-            leading: const Padding(
+            leading: Padding(
               padding: EdgeInsets.all(8.1),
-              child: Material(
-                shape: CircleBorder(),
-                elevation: 100,
+              child: Image(
+                image: user!.get("user")!.sex != "Male"
+                    ? AssetImage("assets/images/graduating-student.png")
+                    : AssetImage("assets/images/ellipse5.png"),
               ),
             ),
             flexibleSpace: Container(

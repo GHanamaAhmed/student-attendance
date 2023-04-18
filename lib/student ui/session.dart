@@ -51,7 +51,7 @@ class _SessionState extends State<Session> {
     /*socket.on("message", (data) {
       print(data.toString());
     });*/
-    socket.onDisconnect((_) => print('disconnect'));
+    socket.onDisconnect((_) => print('disconnect session'));
     socket.on('fromServer', (_) => print(_));
   }
 
@@ -183,8 +183,7 @@ class _SessionState extends State<Session> {
                                 child: SizedBox(
                                   height: 40,
                                   width: 40,
-                                  child: Image.asset(
-                                      "assets/images/ellipse5.png"),
+                                  child:e["sex"]!="Male"? Image.asset("assets/images/graduating-student.png"):Image.asset("assets/images/ellipse5.png"),
                                 ),
                               ),
                               Column(

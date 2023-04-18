@@ -39,15 +39,16 @@ class _AttendenceState extends State<Attendence> {
       print(socket.id);
     });
     socket.emit("join-r", {
-      "email": user!.get("user")!.firstName.toString()
+      "email": user!.get("user")!.email.toString()
     });
     socket.on("add-r", (res) {
       print(res);
+      teacher.insert(0, res);
     });
     /*socket.on("message", (data) {
       print(data.toString());
     });*/
-    socket.onDisconnect((_) => print('disconnect'));
+    socket.onDisconnect((_) => print('disconnect attendence'));
     socket.on('fromServer', (_) => print(_));
   }
   dynamic joinroom() async {
@@ -65,6 +66,7 @@ class _AttendenceState extends State<Attendence> {
     setState(() {
       if (decodedResponse["res"] == true) {
         teacher = List<Map<String, dynamic>>.from(decodedResponse["data"]);
+        teacher=teacher.reversed.toList();
       }
     });
   }
@@ -81,8 +83,8 @@ class _AttendenceState extends State<Attendence> {
     // TODO: implement initState
     setState(() {
       username = "${user.get("user")!.lastName} ${user.get("user")!.firstName}";
-      joinroom();
       initSocket();
+      joinroom();
     });
     super.initState();
   }

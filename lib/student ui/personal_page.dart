@@ -69,7 +69,9 @@ class _PersonState extends State<Person> {
                   border: Border.all(
                       width: 2, color: Color.fromRGBO(204, 204, 204, 1))),
               child: Container(
-                child: Image.asset("assets/images/ellipse5.png"),
+                child: user!.get("user")!.sex != "Male"
+                    ? Image.asset("assets/images/graduating-student.png")
+                    : Image.asset("assets/images/ellipse5.png"),
                 alignment: AlignmentDirectional.center,
                 decoration: BoxDecoration(
                     color: Color.fromRGBO(204, 204, 204, 1),
