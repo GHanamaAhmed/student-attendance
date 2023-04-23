@@ -7,14 +7,14 @@ import 'package:http/http.dart' as http;
 import '../redux/data.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
-class Attendence extends StatefulWidget {
-  const Attendence({Key? key}) : super(key: key);
+class Notifications extends StatefulWidget {
+  const Notifications({Key? key}) : super(key: key);
 
   @override
-  State<Attendence> createState() => _AttendenceState();
+  State<Notifications> createState() => _NotificationsState();
 }
 
-class _AttendenceState extends State<Attendence> {
+class _NotificationsState extends State<Notifications> {
   List<Map<String, dynamic>> teacher = [];
   String time = "";
   late IO.Socket socket;
@@ -24,50 +24,11 @@ class _AttendenceState extends State<Attendence> {
     String time = DateFormat.jm().format(dateTime);
     return time;
   }
-  String dateFormate(originalTime) {
-    // تحويل الوقت إلى كائن DateTime
-    DateTime dateTime = DateTime.parse(originalTime);
 
-    // إضافة ساعة واحدة إلى الوقت
-    DateTime updatedDateTime = dateTime.add(Duration(hours: 1));
-
-    // تحويل الوقت المحدث إلى التنسيق الجديد
-    String formattedTime =
-    DateFormat('yyyy-MM-dd   HH:mm').format(updatedDateTime);
-
-    print(formattedTime); // سيظهر الوقت المحدث: 2023-04-23   09:29
-    return formattedTime;
-  }
-  initSocket() {
-    socket =
-        IO.io('https://simpleapi-p29y.onrender.com/students', <String, dynamic>{
-      'autoConnect': false,
-      'transports': ['websocket'],
-      "auth": {
-        "email": user!.get("user")!.email.toString(),
-        "password": user!.get("user")!.password.toString(),
-      },
-    });
-    socket.connect();
-    socket.onConnect((_) {
-      print('connect');
-      print(socket.id);
-    });
-    socket.emit("join-r", {"email": user!.get("user")!.email.toString()});
-    socket.on("add-r", (res) {
-      print(res);
-      teacher.insert(0, res);
-    });
-    /*socket.on("message", (data) {
-      print(data.toString());
-    });*/
-    socket.onDisconnect((_) => print('disconnect attendence'));
-    socket.on('fromServer', (_) => print(_));
-  }
-
-  dynamic joinroom() async {
+  dynamic notification() async {
+    print("fffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
     var response = await http.post(
-        Uri.parse("https://simpleapi-p29y.onrender.com/student/attandance"),
+        Uri.parse("https://simpleapi-p29y.onrender.com/student/notification"),
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
@@ -75,8 +36,9 @@ class _AttendenceState extends State<Attendence> {
           "email": user.get("user")!.email,
           "password": user.get("user")!.password,
         });
-
+    print(response.body);
     var decodedResponse = jsonDecode(response.body);
+    print(decodedResponse);
     setState(() {
       if (decodedResponse["res"] == true) {
         teacher = List<Map<String, dynamic>>.from(decodedResponse["data"]);
@@ -84,7 +46,19 @@ class _AttendenceState extends State<Attendence> {
       }
     });
   }
+  String dateFormate(originalTime)  {
+    // تحويل الوقت إلى كائن DateTime
+    DateTime dateTime = DateTime.parse(originalTime);
 
+    // إضافة ساعة واحدة إلى الوقت
+    DateTime updatedDateTime = dateTime.add(Duration(hours: 1));
+
+    // تحويل الوقت المحدث إلى التنسيق الجديد
+    String formattedTime = DateFormat('yyyy-MM-dd   HH:mm').format(updatedDateTime);
+
+    print(formattedTime); // سيظهر الوقت المحدث: 2023-04-23   09:29
+    return formattedTime;
+  }
   @override
   void dispose() {
     // TODO: implement dispose
@@ -99,8 +73,7 @@ class _AttendenceState extends State<Attendence> {
     // TODO: implement initState
     setState(() {
       username = "${user.get("user")!.lastName} ${user.get("user")!.firstName}";
-      initSocket();
-      joinroom();
+      notification();
     });
     super.initState();
   }
@@ -118,7 +91,7 @@ class _AttendenceState extends State<Attendence> {
                 child: Center(
                     child: FractionallySizedBox(
                   widthFactor: 0.8,
-                  child: Text("Today’s classes",
+                  child: Text("Classes",
                       style: TextStyle(
                           fontSize: 25,
                           fontWeight: FontWeight.w500,
@@ -197,8 +170,7 @@ class _AttendenceState extends State<Attendence> {
                                           Container(
                                               margin: const EdgeInsets.fromLTRB(
                                                   15, 3, 3, 3),
-                                              child: Text(
-                                                  '${dateFormate(e["createAt"])}',
+                                              child: Text('${dateFormate(e["date"])}',
                                                   style: const TextStyle(
                                                     color: Color.fromRGBO(
                                                         73, 92, 131, 1),

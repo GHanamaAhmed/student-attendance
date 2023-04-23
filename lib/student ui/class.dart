@@ -1,12 +1,21 @@
+import 'dart:convert';
+import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hive/hive.dart';
+import 'package:intl/date_symbol_data_file.dart';
+import 'package:skoni/student%20ui/notification.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
+import 'package:intl/intl.dart';
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 import '../redux/data.dart';
 import 'package:badges/badges.dart' as badge;
+import 'package:http/http.dart' as http;
 
 class Class extends StatefulWidget {
-  const Class({Key? key}) : super(key: key);
+  final SwiperController contoller;
+  Class({Key? key, required this.contoller}) : super(key: key);
 
   @override
   State<Class> createState() => _ClassState();
@@ -23,6 +32,7 @@ class _ClassState extends State<Class> {
     setState(() {
       setuserName();
     });
+    notification();
     initSocket();
     super.initState();
   }
@@ -33,32 +43,29 @@ class _ClassState extends State<Class> {
     username = "${user.get("user")!.lastName} ${user.get("user")!.firstName}";
   }
 
-  List<Map<String, String>> teacher = <Map<String, String>>[
-    {
-      "name": 'ghanama',
-      "class": "redaction siantific",
-      "time": "8:00-9:30",
-      "type": "c"
-    },
-    {
-      "name": 'elmasri',
-      "class": 'app mobile',
-      "time": '9:30-11:00',
-      "type": "td"
-    },
-    {
-      "name": 'abellache',
-      "class": 'system information',
-      "time": '11:00-12:30',
-      "type": "tp"
-    },
-    {
-      "name": 'moulay lkhader',
-      "class": 'graph theory',
-      "time": '2:00-3:30',
-      "type": "td"
-    },
-  ];
+  List<Map<String, dynamic>> teacher = [];
+  dynamic notification() async {
+    print("fffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
+    var response = await http.post(
+        Uri.parse("https://simpleapi-p29y.onrender.com/student/notification"),
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: {
+          "email": user.get("user")!.email,
+          "password": user.get("user")!.password,
+        });
+    print(response.body);
+    var decodedResponse = jsonDecode(response.body);
+    print(decodedResponse);
+    setState(() {
+      if (decodedResponse["res"] == true) {
+        teacher = List<Map<String, dynamic>>.from(decodedResponse["data"]);
+        teacher = teacher.reversed.toList();
+      }
+    });
+  }
+
   initSocket() {
     socket =
         IO.io('https://simpleapi-p29y.onrender.com/students', <String, dynamic>{
@@ -79,8 +86,8 @@ class _ClassState extends State<Class> {
     });
     socket.on("create-room", (res) {
       setState(() {
-        print(res);
         count++;
+        notification();
       });
     });
     /*socket.on("message", (data) {
@@ -98,6 +105,21 @@ class _ClassState extends State<Class> {
     super.dispose();
   }
 
+  String dateFormate(originalTime) {
+    // تحويل الوقت إلى كائن DateTime
+    DateTime dateTime = DateTime.parse(originalTime);
+
+    // إضافة ساعة واحدة إلى الوقت
+    DateTime updatedDateTime = dateTime.add(Duration(hours: 1));
+
+    // تحويل الوقت المحدث إلى التنسيق الجديد
+    String formattedTime =
+        DateFormat('yyyy-MM-dd   HH:mm').format(updatedDateTime);
+
+    print(formattedTime); // سيظهر الوقت المحدث: 2023-04-23   09:29
+    return formattedTime;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -105,34 +127,6 @@ class _ClassState extends State<Class> {
           preferredSize: const Size(10, 100),
           child: AppBar(
             title: Text(username),
-            actions: [
-              Container(
-                margin: const EdgeInsets.fromLTRB(0, 0, 30, 0),
-                child: Center(
-                  child: badge.Badge(
-                    position: badge.BadgePosition.topEnd(top: 5, end: 3),
-                    badgeStyle: badge.BadgeStyle(
-                        padding: const EdgeInsets.all(5),
-                        borderRadius: BorderRadius.circular(10),
-                        badgeColor:
-                            count == 0 ? Colors.transparent : Colors.red),
-                    badgeContent: count != 0
-                        ? Text("${count}",
-                            style: TextStyle(color: Colors.white))
-                        : Text(""),
-                    child: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          count = 0;
-                        });
-                      },
-                      icon: const Icon(Icons.notifications,
-                          color: Colors.white, size: 40),
-                    ),
-                  ),
-                ),
-              )
-            ],
             toolbarHeight: 100,
             elevation: 0,
             leading: Padding(
@@ -153,7 +147,8 @@ class _ClassState extends State<Class> {
             backgroundColor: Colors.transparent,
           ),
         ),
-        body: Column(
+        body: SingleChildScrollView(
+            child: Column(
           children: [
             Center(
                 child: FractionallySizedBox(
@@ -168,91 +163,123 @@ class _ClassState extends State<Class> {
                                   fontSize: 25,
                                   fontWeight: FontWeight.w500,
                                   color: Color.fromRGBO(73, 92, 131, 1))),
-                          Text(
-                            "All",
-                            style: TextStyle(fontSize: 18),
-                          )
+                          GestureDetector(
+                            child: Text(
+                              "All",
+                              style: TextStyle(fontSize: 18),
+                            ),
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Notifications()));
+                            },
+                          ),
                         ],
                       ),
                     ))),
             Center(
               child: Column(
-                children: teacher
-                    .map(
-                      (e) => FractionallySizedBox(
-                          widthFactor: 0.95,
-                          child: Card(
-                              child: Container(
-                            padding: EdgeInsets.fromLTRB(15, 20, 15, 20),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Container(
-                                  decoration: BoxDecoration(
-                                      color: const Color(0xCA9AE1F6),
-                                      borderRadius: BorderRadius.circular(200)),
-                                  margin: const EdgeInsets.fromLTRB(0, 3, 0, 3),
-                                  child: SizedBox(
-                                    height: 40,
-                                    width: 40,
-                                    child: e['type'] == 'c'
-                                        ? SvgPicture.asset(
-                                            "assets/images/c.svg",
-                                          )
-                                        : e['type'] == 'td'
-                                            ? SvgPicture.asset(
-                                                "assets/images/td.svg")
-                                            : SvgPicture.asset(
-                                                "assets/images/tp.svg"),
+                children: teacher.map((e) {
+                  DateTime now = DateTime.now();
+                  String formattedNow = DateFormat('yyyy-MM-dd').format(now);
+                  DateTime otherDateTime = DateTime.parse(e['date']);
+                  String formattedother =
+                      DateFormat('yyyy-MM-dd').format(otherDateTime);
+                  int comparisonResult = formattedNow.compareTo(formattedother);
+                  if (comparisonResult == 0) {
+                    return GestureDetector(
+                        onTap: () {
+                          widget.contoller.move(2);
+                        },
+                        child: FractionallySizedBox(
+                            widthFactor: 0.95,
+                            child: Card(
+                                child: Container(
+                              padding: EdgeInsets.fromLTRB(15, 20, 15, 20),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        color: const Color(0xCA9AE1F6),
+                                        borderRadius:
+                                            BorderRadius.circular(200)),
+                                    margin:
+                                        const EdgeInsets.fromLTRB(0, 3, 0, 3),
+                                    child: SizedBox(
+                                      height: 40,
+                                      width: 40,
+                                      child: e['type'] == 'Cour'
+                                          ? SvgPicture.asset(
+                                              "assets/images/c.svg",
+                                            )
+                                          : e['type'] == 'Td'
+                                              ? SvgPicture.asset(
+                                                  "assets/images/td.svg")
+                                              : SvgPicture.asset(
+                                                  "assets/images/tp.svg"),
+                                    ),
                                   ),
-                                ),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                        margin: const EdgeInsets.fromLTRB(
-                                            15, 3, 0, 3),
-                                        child: Text('${e["class"]}',
-                                            style: const TextStyle(
-                                              color: Color.fromRGBO(
-                                                  73, 92, 131, 1),
-                                              fontSize: 15,
-                                            ))),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Container(
-                                            margin: const EdgeInsets.fromLTRB(
-                                                15, 3, 15, 3),
-                                            child: Text('${e["name"]}',
-                                                style: const TextStyle(
-                                                  color: Color.fromRGBO(
-                                                      73, 92, 131, 1),
-                                                  fontSize: 15,
-                                                ))),
-                                        Container(
-                                            margin: const EdgeInsets.fromLTRB(
-                                                15, 3, 3, 3),
-                                            child: Text('${e["time"]}',
-                                                style: const TextStyle(
-                                                  color: Color.fromRGBO(
-                                                      73, 92, 131, 1),
-                                                  fontSize: 15,
-                                                )))
-                                      ],
-                                    )
-                                  ],
-                                )
-                              ],
-                            ),
-                          ))),
-                    )
-                    .toList(),
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                          margin: const EdgeInsets.fromLTRB(
+                                              15, 3, 0, 3),
+                                          child: Text('${e["module"]}',
+                                              style: const TextStyle(
+                                                color: Color.fromRGBO(
+                                                    73, 92, 131, 1),
+                                                fontSize: 15,
+                                              ))),
+                                      Container(
+                                          margin: const EdgeInsets.fromLTRB(
+                                              15, 3, 0, 3),
+                                          child: Text('${e["name"]}',
+                                              style: const TextStyle(
+                                                color: Color.fromRGBO(
+                                                    73, 92, 131, 1),
+                                                fontSize: 15,
+                                              ))),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Container(
+                                              margin: const EdgeInsets.fromLTRB(
+                                                  15, 3, 15, 3),
+                                              child: Text('${e["type"]}          |',
+                                                  style: const TextStyle(
+                                                    color: Color.fromRGBO(
+                                                        73, 92, 131, 1),
+                                                    fontSize: 15,
+                                                  ))),
+                                          Container(
+                                              margin: const EdgeInsets.fromLTRB(
+                                                  15, 3, 3, 3),
+                                              child: Text(
+                                                  '${dateFormate(e["date"])}',
+                                                  style: const TextStyle(
+                                                    color: Color.fromRGBO(
+                                                        73, 92, 131, 1),
+                                                    fontSize: 15,
+                                                  )))
+                                        ],
+                                      )
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ))));
+                  }
+                  return Container();
+                }).toList(),
               ),
             ),
           ],
-        ));
+        )));
   }
 }

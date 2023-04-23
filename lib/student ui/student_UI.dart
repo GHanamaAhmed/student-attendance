@@ -37,7 +37,7 @@ class _student_UIState extends State<student_UI> {
   void initState() {
     // TODO: implement initState
     page = [
-      Class(),
+      Class(contoller: _controller),
       Attendence(),
       MaterialApp(
         debugShowCheckedModeBanner: false,
