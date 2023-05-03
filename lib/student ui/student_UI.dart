@@ -6,7 +6,6 @@ import 'package:skoni/student%20ui/class.dart';
 import 'package:skoni/student%20ui/Qrcode.dart';
 import 'package:skoni/student%20ui/personal_page.dart';
 import 'package:skoni/student%20ui/scanner.dart';
-import 'package:skoni/student%20ui/attendence.dart';
 import 'package:flutter_svg/svg.dart';
 
 class student_UI extends StatefulWidget {
@@ -38,7 +37,7 @@ class _student_UIState extends State<student_UI> {
     // TODO: implement initState
     page = [
       Class(contoller: _controller),
-      Attendence(),
+      const Attendence(),
       MaterialApp(
         debugShowCheckedModeBanner: false,
         initialRoute: "/qrcode",
@@ -48,7 +47,7 @@ class _student_UIState extends State<student_UI> {
           "/scanner": (context) => QRCodeScannerScreen(),
         },
       ),
-      Person(),
+      const Person(),
     ];
     super.initState();
   }
@@ -69,7 +68,7 @@ class _student_UIState extends State<student_UI> {
           backgroundColor: Colors.white,
           selectedFontSize: 15,
           iconSize: 25,
-          selectedItemColor: Color.fromRGBO(73, 92, 131, 1),
+          selectedItemColor: const Color.fromRGBO(73, 92, 131, 1),
           onTap: _onItemtapped,
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(

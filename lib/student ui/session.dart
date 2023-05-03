@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:http/http.dart' as http;
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:hive/hive.dart';
@@ -103,67 +102,22 @@ class _SessionState extends State<Session> {
             child: FractionallySizedBox(
                 widthFactor: 0.8,
                 child: Container(
-                  margin: EdgeInsets.fromLTRB(0, 20, 0, 20),
+                  margin: const EdgeInsets.fromLTRB(0, 20, 0, 20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Students",
+                      const Text("Students",
                           style: TextStyle(
                               fontSize: 25,
                               fontWeight: FontWeight.w500,
                               color: Color.fromRGBO(73, 92, 131, 1))),
                       Text(
                         "${data.length}",
-                        style: TextStyle(fontSize: 18,color: Color.fromRGBO(73, 92, 131, 1)),
+                        style: const TextStyle(fontSize: 18,color: Color.fromRGBO(73, 92, 131, 1)),
                       )
                     ],
                   ),
-                ))),/*
-          ListView.separated(
-            padding: EdgeInsets.all(10),
-            itemCount: data?.length == null ? 0 : data.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Container(
-                height: 90,
-                child: Card(
-                    /* decoration:  BoxDecoration(
-                  gradient:const LinearGradient(
-                    begin: Alignment.bottomLeft,
-                        end: Alignment.centerRight,
-                      colors: [
-                        Color(0xffb9bdc5),
-                        Color(0xffe6ebf3)
-                      ],
-                  ),
-                  borderRadius: BorderRadius.circular(8.0),
-                ),*/
-                    // height: 60,
-
-                    child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    const SizedBox(
-                      width: 60,
-                      child: Icon(Icons.pie_chart_sharp, color: Colors.blueAccent),
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text((index + 1).toString()),
-                        Text(
-                            '${data[index]["firstname"]} ${data[index]["lastname"]}'),
-                      ],
-                    )
-                  ],
-                )),
-              );
-            },
-            separatorBuilder: (BuildContext context, int index) => const Divider(
-              height: 10,
-              thickness: 0,
-              color: Colors.transparent,
-            ),
-          ),*/
+                ))),
           Center(
             child: Column(
               children: data
@@ -172,7 +126,7 @@ class _SessionState extends State<Session> {
                     widthFactor: 0.95,
                     child: Card(
                         child: Container(
-                          padding: EdgeInsets.fromLTRB(15, 20, 15, 20),
+                          padding: const EdgeInsets.fromLTRB(15, 20, 15, 20),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
