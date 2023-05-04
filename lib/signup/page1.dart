@@ -149,6 +149,7 @@ class _Page1State extends State<Page1> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
+              margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
               child: TextFormField(
                 controller: _controller,
                 onChanged: (value) => setState(() {}),
@@ -185,9 +186,9 @@ class _Page1State extends State<Page1> {
                     filled: true,
                     fillColor: Color.fromRGBO(245, 245, 245, 0.6)),
               ),
-              margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
             ),
             Container(
+              margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
               child: TextFormField(
                 onTap: () {
                   setState(() {
@@ -227,9 +228,9 @@ class _Page1State extends State<Page1> {
                     hintText: "Password",
                     fillColor: Color.fromRGBO(245, 245, 245, 0.6)),
               ),
-              margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
             ),
             Container(
+              margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
               child: TextFormField(
                 controller: _controller4,
                 obscureText: passwordvisible,
@@ -271,7 +272,6 @@ class _Page1State extends State<Page1> {
                     hintText: "Reset password",
                     fillColor: Color.fromRGBO(245, 245, 245, 0.6)),
               ),
-              margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
             ),
             Container(
               width: double.infinity,

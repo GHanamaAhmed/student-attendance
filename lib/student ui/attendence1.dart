@@ -4,7 +4,6 @@ import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
-import '../redux/data.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class Attendence extends StatefulWidget {
@@ -29,7 +28,7 @@ class _AttendenceState extends State<Attendence> {
     DateTime dateTime = DateTime.parse(originalTime);
 
     // إضافة ساعة واحدة إلى الوقت
-    DateTime updatedDateTime = dateTime.add(Duration(hours: 1));
+    DateTime updatedDateTime = dateTime.add(const Duration(hours: 1));
 
     // تحويل الوقت المحدث إلى التنسيق الجديد
     String formattedTime =
@@ -108,14 +107,14 @@ class _AttendenceState extends State<Attendence> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        decoration: BoxDecoration(color: const Color(0xeaffffff)),
+        decoration: const BoxDecoration(color: Color(0xeaffffff)),
         child: SafeArea(
           child: SingleChildScrollView(
               child: Column(
             children: [
               Container(
-                margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                child: Center(
+                margin: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                child: const Center(
                     child: FractionallySizedBox(
                   widthFactor: 0.8,
                   child: Text("Today’s classes",
@@ -133,7 +132,7 @@ class _AttendenceState extends State<Attendence> {
                             widthFactor: 0.95,
                             child: Card(
                                 child: Container(
-                              padding: EdgeInsets.fromLTRB(15, 20, 15, 20),
+                              padding: const EdgeInsets.fromLTRB(15, 20, 15, 20),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
@@ -157,7 +156,7 @@ class _AttendenceState extends State<Attendence> {
                                               : e['type'] == "Tp"
                                                   ? SvgPicture.asset(
                                                       "assets/images/tp.svg")
-                                                  : Icon(Icons.pie_chart_sharp,
+                                                  : const Icon(Icons.pie_chart_sharp,
                                                       color: Colors.blueAccent),
                                     ),
                                   ),
@@ -188,8 +187,8 @@ class _AttendenceState extends State<Attendence> {
                                                         73, 92, 131, 1),
                                                     fontSize: 15,
                                                   ))),
-                                          Text("|",
-                                              style: const TextStyle(
+                                          const Text("|",
+                                              style: TextStyle(
                                                 color: Color.fromRGBO(
                                                     73, 92, 131, 1),
                                                 fontSize: 15,

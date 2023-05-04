@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hive/hive.dart';
-import 'package:skoni/redux/data.dart';
 import 'package:skoni/student%20ui/userManagment.dart';
 
 class Person extends StatefulWidget {
@@ -59,34 +58,34 @@ class _PersonState extends State<Person> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("profile",
+            const Text("profile",
                 style: TextStyle(
                     fontSize: 40, color: Color.fromRGBO(73, 92, 131, 1))),
             Container(
-              padding: EdgeInsets.all(2),
+              padding: const EdgeInsets.all(2),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(380),
                   border: Border.all(
-                      width: 2, color: Color.fromRGBO(204, 204, 204, 1))),
+                      width: 2, color: const Color.fromRGBO(204, 204, 204, 1))),
+              margin: const EdgeInsets.all(20),
               child: Container(
                 child: user!.get("user")!.sex != "Male"
                     ? Image.asset("assets/images/graduating-student.png")
                     : Image.asset("assets/images/ellipse5.png"),
                 alignment: AlignmentDirectional.center,
                 decoration: BoxDecoration(
-                    color: Color.fromRGBO(204, 204, 204, 1),
+                    color: const Color.fromRGBO(204, 204, 204, 1),
                     borderRadius: BorderRadius.circular(380)),
-                padding: EdgeInsets.all(15),
+                padding: const EdgeInsets.all(15),
                 width: 110,
               ),
-              margin: EdgeInsets.all(20),
             ),
             Text("${user.get("user")!.lastName} ${user.get("user")!.firstName}",
-                style: TextStyle(
+                style: const TextStyle(
                     fontSize: 30, color: Color.fromRGBO(73, 92, 131, 1))),
             Container(
-                margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                child: FractionallySizedBox(
+                margin: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                child: const FractionallySizedBox(
                   widthFactor: 0.9,
                   child: Divider(color: Color.fromRGBO(204, 204, 204, 1)),
                 )),
@@ -96,11 +95,11 @@ class _PersonState extends State<Person> {
                 Column(
                   children: [
                     Text(specialist,
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: Color.fromRGBO(73, 92, 131, 1),
                             fontSize: 17)),
-                    Text(
-                      "Specialiste",
+                    const Text(
+                      "Specialty",
                       style: TextStyle(
                           color: Color.fromRGBO(204, 204, 204, 1),
                           fontSize: 17),
@@ -110,10 +109,10 @@ class _PersonState extends State<Person> {
                 Column(
                   children: [
                     Text(departement,
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: Color.fromRGBO(73, 92, 131, 1),
                             fontSize: 17)),
-                    Text(
+                    const Text(
                       "Departement",
                       style: TextStyle(
                           color: Color.fromRGBO(204, 204, 204, 1),
@@ -124,11 +123,11 @@ class _PersonState extends State<Person> {
                 Column(
                   children: [
                     Text(faculte,
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: Color.fromRGBO(73, 92, 131, 1),
                             fontSize: 17)),
-                    Text(
-                      "Faculte",
+                    const Text(
+                      "Faculty",
                       style: TextStyle(
                           color: Color.fromRGBO(204, 204, 204, 1),
                           fontSize: 17),
@@ -138,12 +137,15 @@ class _PersonState extends State<Person> {
               ],
             ),
             Container(
-              margin: EdgeInsets.fromLTRB(0, 30, 0, 30),
+              margin: const EdgeInsets.fromLTRB(0, 30, 0, 30),
               child: FractionallySizedBox(
                 widthFactor: 0.8,
                 child: Container(
-                  margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                  padding: EdgeInsets.fromLTRB(30, 20, 30, 20),
+                  margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                  padding: const EdgeInsets.fromLTRB(30, 20, 30, 20),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10)),
                   child: Column(
                     children: [
                       Row(
@@ -184,15 +186,15 @@ class _PersonState extends State<Person> {
                                           ],
                                         ));
                               },
-                              child: Text(
-                                "User managment",
+                              child: const Text(
+                                "User management",
                                 style: TextStyle(
                                     color: Color.fromRGBO(73, 92, 131, 1),
                                     fontWeight: FontWeight.w500),
                               )),
                         ],
                       ),
-                      Container(margin: EdgeInsets.fromLTRB(0, 15, 15, 0)),
+                      Container(margin: const EdgeInsets.fromLTRB(0, 15, 15, 0)),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -206,7 +208,7 @@ class _PersonState extends State<Person> {
                                         AlertDialog(
                                           title:
                                               const Text('Exit confirmation'),
-                                          content: Text("Do tou want to exit?"),
+                                          content: const Text("Do you want to exit?"),
                                           actions: <Widget>[
                                             TextButton(
                                               onPressed: () => Navigator.pop(
@@ -227,7 +229,7 @@ class _PersonState extends State<Person> {
                                           ],
                                         ));
                               },
-                              child: Text(
+                              child: const Text(
                                 "Logout",
                                 style: TextStyle(
                                     color: Color.fromRGBO(73, 92, 131, 1),
@@ -237,9 +239,6 @@ class _PersonState extends State<Person> {
                       )
                     ],
                   ),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10)),
                 ),
               ),
             )

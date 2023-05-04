@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:card_swiper/card_swiper.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 
@@ -211,7 +210,7 @@ class _UserManagmentState extends State<UserManagment> {
             Expanded(
                 flex: 1,
                 child: Container(
-                  margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
+                  margin: const EdgeInsets.fromLTRB(0, 0, 5, 0),
                   child: TextFormField(
                     onChanged: (value) {
                       setState(() {});
@@ -229,32 +228,32 @@ class _UserManagmentState extends State<UserManagment> {
                                   _controller1.clear();
                                   setState(() {});
                                 },
-                                icon: Icon(Icons.clear),
+                                icon: const Icon(Icons.clear),
                               )
                             : null,
                         enabledBorder: OutlineInputBorder(
                             borderSide: _controller1.text.isNotEmpty ||
                                     firstNameClick == false
                                 ? BorderSide.none
-                                : BorderSide(
+                                : const BorderSide(
                                     color: Colors.redAccent, width: 2)),
                         border: OutlineInputBorder(
                             borderSide: _controller1.text.isEmpty ||
                                     firstNameClick == true
-                                ? BorderSide(color: Colors.redAccent, width: 2)
-                                : BorderSide(
+                                ? const BorderSide(color: Colors.redAccent, width: 2)
+                                : const BorderSide(
                                     color: Colors.blueAccent, width: 2)),
                         filled: true,
                         hintStyle:
-                            TextStyle(color: Color.fromRGBO(73, 69, 79, 0.7)),
+                            const TextStyle(color: Color.fromRGBO(73, 69, 79, 0.7)),
                         hintText: "first name",
-                        fillColor: Color.fromRGBO(245, 245, 245, 0.6)),
+                        fillColor: const Color.fromRGBO(245, 245, 245, 0.6)),
                   ),
                 )),
             Expanded(
                 flex: 1,
                 child: Container(
-                  margin: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                  margin: const EdgeInsets.fromLTRB(5, 0, 0, 0),
                   child: TextFormField(
                     controller: _controller2,
                     onChanged: (value) => setState(() {}),
@@ -270,27 +269,27 @@ class _UserManagmentState extends State<UserManagment> {
                                   _controller2.clear();
                                   setState(() {});
                                 },
-                                icon: Icon(Icons.clear),
+                                icon: const Icon(Icons.clear),
                               )
                             : null,
                         enabledBorder: OutlineInputBorder(
                             borderSide: _controller2.text.isNotEmpty ||
                                     lastNameClick == false
                                 ? BorderSide.none
-                                : BorderSide(
+                                : const BorderSide(
                                     color: Colors.redAccent, width: 2)),
                         border: OutlineInputBorder(
                             borderSide: (_controller1.text.toString() ==
                                         _controller2.text.toString()) ||
                                     lastNameClick == false
-                                ? BorderSide(color: Colors.blueAccent, width: 2)
-                                : BorderSide(
+                                ? const BorderSide(color: Colors.blueAccent, width: 2)
+                                : const BorderSide(
                                     color: Colors.redAccent, width: 2)),
                         filled: true,
                         hintStyle:
-                            TextStyle(color: Color.fromRGBO(73, 69, 79, 0.7)),
+                            const TextStyle(color: Color.fromRGBO(73, 69, 79, 0.7)),
                         hintText: "last name",
-                        fillColor: Color.fromRGBO(245, 245, 245, 0.6)),
+                        fillColor: const Color.fromRGBO(245, 245, 245, 0.6)),
                   ),
                 )),
           ],
@@ -322,17 +321,17 @@ class _UserManagmentState extends State<UserManagment> {
                 enabledBorder: OutlineInputBorder(
                     borderSide: _controller1.text.length > 7 || password == 0
                         ? BorderSide.none
-                        : BorderSide(color: Colors.redAccent, width: 2)),
+                        : const BorderSide(color: Colors.redAccent, width: 2)),
                 border: OutlineInputBorder(
                     borderSide: _controller1.text.length > 7 || password == 0
-                        ? BorderSide(color: Colors.blueAccent, width: 2)
-                        : BorderSide(color: Colors.redAccent, width: 2)),
+                        ? const BorderSide(color: Colors.blueAccent, width: 2)
+                        : const BorderSide(color: Colors.redAccent, width: 2)),
                 filled: true,
-                hintStyle: TextStyle(color: Color.fromRGBO(73, 69, 79, 0.7)),
+                hintStyle: const TextStyle(color: Color.fromRGBO(73, 69, 79, 0.7)),
                 hintText: "Password",
-                fillColor: Color.fromRGBO(245, 245, 245, 0.6)),
+                fillColor: const Color.fromRGBO(245, 245, 245, 0.6)),
           ),
-          margin: EdgeInsets.fromLTRB(0, 5, 0, 5),
+          margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
         ),
         Container(
           child: TextFormField(
@@ -363,25 +362,25 @@ class _UserManagmentState extends State<UserManagment> {
                                 _controller3.text.toString()) ||
                             resetPasword == 0
                         ? BorderSide.none
-                        : BorderSide(color: Colors.redAccent, width: 2)),
+                        : const BorderSide(color: Colors.redAccent, width: 2)),
                 border: OutlineInputBorder(
                     borderSide: (_controller.text.toString() ==
                                 _controller3.text.toString()) ||
                             resetPasword == 0
-                        ? BorderSide(color: Colors.blueAccent, width: 2)
-                        : BorderSide(color: Colors.redAccent, width: 2)),
+                        ? const BorderSide(color: Colors.blueAccent, width: 2)
+                        : const BorderSide(color: Colors.redAccent, width: 2)),
                 filled: true,
-                hintStyle: TextStyle(color: Color.fromRGBO(73, 69, 79, 0.7)),
+                hintStyle: const TextStyle(color: Color.fromRGBO(73, 69, 79, 0.7)),
                 hintText: "Reset password",
-                fillColor: Color.fromRGBO(245, 245, 245, 0.6)),
+                fillColor: const Color.fromRGBO(245, 245, 245, 0.6)),
           ),
-          margin: EdgeInsets.fromLTRB(0, 5, 0, 5),
+          margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
         ),
         Container(
           child: Column(
             children: [
               Container(
-                margin: EdgeInsets.fromLTRB(0, 5, 0, 5),
+                margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
                 child: DropdownButtonFormField<String>(
                         onTap: () {
                           setState(() {
@@ -393,22 +392,22 @@ class _UserManagmentState extends State<UserManagment> {
                             enabledBorder: OutlineInputBorder(
                                 borderSide:
                                     (faculteClick == true && faculte == "")
-                                        ? BorderSide(
+                                        ? const BorderSide(
                                             color: Colors.redAccent, width: 2)
                                         : BorderSide.none),
                             border: OutlineInputBorder(
                                 borderSide:
                                     (faculteClick == true && faculte == "")
-                                        ? BorderSide(
+                                        ? const BorderSide(
                                             color: Colors.redAccent, width: 2)
-                                        : BorderSide(
+                                        : const BorderSide(
                                             color: Colors.blueAccent,
                                             width: 2)),
-                            hintStyle: TextStyle(
+                            hintStyle: const TextStyle(
                                 color: Color.fromRGBO(73, 69, 79, 0.7)),
                             hintText: "faculte",
                             filled: true,
-                            fillColor: Color.fromRGBO(245, 245, 245, 0.6)),
+                            fillColor: const Color.fromRGBO(245, 245, 245, 0.6)),
                         // Step 4.
                         items: isCf == false
                             ? null
@@ -418,7 +417,7 @@ class _UserManagmentState extends State<UserManagment> {
                                   value: value,
                                   child: Text(
                                     value,
-                                    style: TextStyle(fontSize: 15),
+                                    style: const TextStyle(fontSize: 15),
                                   ),
                                 );
                               }).toList(),
@@ -437,7 +436,7 @@ class _UserManagmentState extends State<UserManagment> {
                       ),
               ),
               Container(
-                margin: EdgeInsets.fromLTRB(0, 5, 0, 5),
+                margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
                 child: DropdownButtonFormField<String>(
                   onTap: () {
                     setState(() {
@@ -449,18 +448,18 @@ class _UserManagmentState extends State<UserManagment> {
                       enabledBorder: OutlineInputBorder(
                           borderSide: departmentClick == true &&
                                   department == ""
-                              ? BorderSide(color: Colors.redAccent, width: 2)
+                              ? const BorderSide(color: Colors.redAccent, width: 2)
                               : BorderSide.none),
                       border: OutlineInputBorder(
                           borderSide: departmentClick == true &&
                                   department == ""
-                              ? BorderSide(color: Colors.redAccent, width: 2)
-                              : BorderSide(color: Colors.blueAccent, width: 2)),
+                              ? const BorderSide(color: Colors.redAccent, width: 2)
+                              : const BorderSide(color: Colors.blueAccent, width: 2)),
                       hintStyle:
-                          TextStyle(color: Color.fromRGBO(73, 69, 79, 0.7)),
+                          const TextStyle(color: Color.fromRGBO(73, 69, 79, 0.7)),
                       hintText: "department",
                       filled: true,
-                      fillColor: Color.fromRGBO(245, 245, 245, 0.6)),
+                      fillColor: const Color.fromRGBO(245, 245, 245, 0.6)),
 
                   // Step 4.
                   items: isCD
@@ -470,7 +469,7 @@ class _UserManagmentState extends State<UserManagment> {
                             value: value,
                             child: Text(
                               value,
-                              style: TextStyle(fontSize: 15),
+                              style: const TextStyle(fontSize: 15),
                             ),
                           );
                         }).toList()
@@ -489,7 +488,7 @@ class _UserManagmentState extends State<UserManagment> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.fromLTRB(0, 5, 0, 5),
+                margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
                 child: DropdownButtonFormField<String>(
                   onTap: () {
                     setState(() {
@@ -502,18 +501,18 @@ class _UserManagmentState extends State<UserManagment> {
                       enabledBorder: OutlineInputBorder(
                           borderSide: specialistClick == true &&
                                   specialist == ""
-                              ? BorderSide(color: Colors.redAccent, width: 2)
+                              ? const BorderSide(color: Colors.redAccent, width: 2)
                               : BorderSide.none),
                       border: OutlineInputBorder(
                           borderSide: specialistClick == true &&
                                   specialist == ""
-                              ? BorderSide(color: Colors.redAccent, width: 2)
-                              : BorderSide(color: Colors.blueAccent, width: 2)),
+                              ? const BorderSide(color: Colors.redAccent, width: 2)
+                              : const BorderSide(color: Colors.blueAccent, width: 2)),
                       hintStyle:
-                          TextStyle(color: Color.fromRGBO(73, 69, 79, 0.7)),
+                          const TextStyle(color: Color.fromRGBO(73, 69, 79, 0.7)),
                       hintText: "specialist",
                       filled: true,
-                      fillColor: Color.fromRGBO(245, 245, 245, 0.6)),
+                      fillColor: const Color.fromRGBO(245, 245, 245, 0.6)),
 
                   // Step 4.
                   items: isCS
@@ -523,7 +522,7 @@ class _UserManagmentState extends State<UserManagment> {
                             value: value,
                             child: Text(
                               value,
-                              style: TextStyle(fontSize: 15),
+                              style: const TextStyle(fontSize: 15),
                             ),
                           );
                         }).toList()
@@ -538,7 +537,7 @@ class _UserManagmentState extends State<UserManagment> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.fromLTRB(0, 5, 0, 5),
+                margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
                 child: DropdownButtonFormField<String>(
                   onTap: () {
                     setState(() {
@@ -550,18 +549,18 @@ class _UserManagmentState extends State<UserManagment> {
                       enabledBorder: OutlineInputBorder(
                           borderSide: academicYearClick == true &&
                                   academicYear == ""
-                              ? BorderSide(color: Colors.redAccent, width: 2)
+                              ? const BorderSide(color: Colors.redAccent, width: 2)
                               : BorderSide.none),
                       border: OutlineInputBorder(
                           borderSide: academicYearClick == true &&
                                   academicYear == ""
-                              ? BorderSide(color: Colors.redAccent, width: 2)
-                              : BorderSide(color: Colors.blueAccent, width: 2)),
+                              ? const BorderSide(color: Colors.redAccent, width: 2)
+                              : const BorderSide(color: Colors.blueAccent, width: 2)),
                       hintStyle:
-                          TextStyle(color: Color.fromRGBO(73, 69, 79, 0.7)),
+                          const TextStyle(color: Color.fromRGBO(73, 69, 79, 0.7)),
                       hintText: "academic year",
                       filled: true,
-                      fillColor: Color.fromRGBO(245, 245, 245, 0.6)),
+                      fillColor: const Color.fromRGBO(245, 245, 245, 0.6)),
 
                   // Step 4.
                   items: <String>[
@@ -575,7 +574,7 @@ class _UserManagmentState extends State<UserManagment> {
                       value: value,
                       child: Text(
                         value,
-                        style: TextStyle(fontSize: 15),
+                        style: const TextStyle(fontSize: 15),
                       ),
                     );
                   }).toList(),

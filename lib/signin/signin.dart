@@ -145,18 +145,7 @@ class _SigninState extends State<Signin> with TickerProviderStateMixin {
         setState(() {
           connecting = false;
         });
-        /* return (showDialog<String>(
-            context: context,
-            builder: (BuildContext context) => AlertDialog(
-                  title: const Text('Sign in'),
-                  content: const Text("succssful"),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, 'Cancel'),
-                      child: const Text('Cancel'),
-                    )
-                  ],
-                )));*/
+
 
         late Student student = new Student(
             firstName: deresponse["data"]["firstname"].toString(),
@@ -374,7 +363,7 @@ class _SigninState extends State<Signin> with TickerProviderStateMixin {
                         signin();
                       },
                       child: connecting == false
-                          ? Text("Sign in")
+                          ? const Text("Sign in")
                           : Container(
                               height: 20,
                               width: 20,

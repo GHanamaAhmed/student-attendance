@@ -3,14 +3,10 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hive/hive.dart';
-import 'package:intl/date_symbol_data_file.dart';
+
 import 'package:skoni/student%20ui/notification.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:intl/intl.dart';
-import 'package:timezone/data/latest.dart' as tz;
-import 'package:timezone/timezone.dart' as tz;
-import '../redux/data.dart';
-import 'package:badges/badges.dart' as badge;
 import 'package:http/http.dart' as http;
 
 class Class extends StatefulWidget {
@@ -255,7 +251,8 @@ class _ClassState extends State<Class> {
                                           Container(
                                               margin: const EdgeInsets.fromLTRB(
                                                   15, 3, 15, 3),
-                                              child: Text('${e["type"]}          |',
+                                              child: Text(
+                                                  '${e["type"]}          |',
                                                   style: const TextStyle(
                                                     color: Color.fromRGBO(
                                                         73, 92, 131, 1),
