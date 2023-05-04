@@ -187,7 +187,11 @@ class _ClassState extends State<Class> {
                   String formattedother =
                       DateFormat('yyyy-MM-dd').format(otherDateTime);
                   int comparisonResult = formattedNow.compareTo(formattedother);
-                  if (comparisonResult == 0) {
+                  print("fffffffffffffff");
+                  print(comparisonResult);
+                  print(formattedother);
+                  print(formattedNow);
+                  if (comparisonResult <= 0) {
                     return GestureDetector(
                         onTap: () {
                           widget.contoller.move(2);

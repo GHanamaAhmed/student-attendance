@@ -55,7 +55,6 @@ class _AttendenceState extends State<Attendence> {
     });
     socket.emit("join-r", {"email": user!.get("user")!.email.toString()});
     socket.on("add-r", (res) {
-      print(res);
       teacher.insert(0, res);
     });
     /*socket.on("message", (data) {
@@ -79,6 +78,7 @@ class _AttendenceState extends State<Attendence> {
     var decodedResponse = jsonDecode(response.body);
     setState(() {
       if (decodedResponse["res"] == true) {
+        print(decodedResponse["data"]);
         teacher = List<Map<String, dynamic>>.from(decodedResponse["data"]);
         teacher = teacher.reversed.toList();
       }

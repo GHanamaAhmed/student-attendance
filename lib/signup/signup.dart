@@ -24,11 +24,6 @@ class _SignupState extends State<Signup> with TickerProviderStateMixin {
     pages = [
       Page1(
         contoller: _controller,
-        onChangedropDownValue: (value) {
-          setState(() {
-            dDvalue.value = value;
-          });
-        },
         onChangedemail: (value) {
           email.value = value;
         },
@@ -88,7 +83,7 @@ class _SignupState extends State<Signup> with TickerProviderStateMixin {
   }
 
   final SwiperController _controller = new SwiperController();
-  ValueNotifier<String> dDvalue = ValueNotifier<String>('');
+  ValueNotifier<String> dDvalue = ValueNotifier<String>('Student');
   ValueNotifier<String> email = ValueNotifier<String>('');
   ValueNotifier<String> password = ValueNotifier<String>('');
   ValueNotifier<String> faculte = ValueNotifier<String>('');

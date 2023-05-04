@@ -4,11 +4,10 @@ import 'package:card_swiper/card_swiper.dart';
 
 class Page1 extends StatefulWidget {
   final SwiperController contoller;
-  final Function onChangedropDownValue;
   final Function onChangedemail;
   final Function onChangedpassword;
   Page1(
-      {Key? key, required this.contoller, required this.onChangedropDownValue,required this.onChangedemail,required this.onChangedpassword})
+      {Key? key, required this.contoller,required this.onChangedemail,required this.onChangedpassword})
       : super(key: key);
 
   @override
@@ -140,7 +139,7 @@ class _Page1State extends State<Page1> {
   int resetPasword = 0;
   bool checkbox = false;
   bool selectClick = false;
-  String dropdownValue = '';
+  String dropdownValue = 'Student';
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -149,46 +148,6 @@ class _Page1State extends State<Page1> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-
-            Container(
-              margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-              child: DropdownButtonFormField<String>(
-                isExpanded: true,
-                decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: selectClick == true && dropdownValue == ""
-                            ? BorderSide(color: Colors.redAccent, width: 2)
-                            : BorderSide.none),
-                    border: OutlineInputBorder(
-                        borderSide: selectClick == true && dropdownValue == ""
-                            ? BorderSide(color: Colors.redAccent, width: 2)
-                            : BorderSide(color: Colors.blueAccent, width: 2)),
-                    hintStyle:
-                        TextStyle(color: Color.fromRGBO(73, 69, 79, 0.7)),
-                    hintText: "Student or Teacher",
-                    filled: true,
-                    fillColor: Color.fromRGBO(245, 245, 245, 0.6)),
-
-                // Step 4.
-                items: <String>['Student', 'Teacher']
-                    .map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(
-                      value,
-                      style: TextStyle(fontSize: 15),
-                    ),
-                  );
-                }).toList(),
-                // Step 5.
-                onChanged: (String? newValue) {
-                  setState(() {
-                    dropdownValue = newValue!;
-                    widget.onChangedropDownValue(dropdownValue!);
-                  });
-                },
-              ),
-            ),
             Container(
               child: TextFormField(
                 controller: _controller,

@@ -102,87 +102,90 @@ class _NotificationsState extends State<Notifications> {
                 child: Column(
                   children: teacher
                       .map(
-                        (e) => FractionallySizedBox(
-                            widthFactor: 0.95,
-                            child: Card(
-                                child: Container(
-                              padding: EdgeInsets.fromLTRB(15, 20, 15, 20),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                        color: const Color(0xCA9AE1F6),
-                                        borderRadius:
-                                            BorderRadius.circular(200)),
-                                    margin:
-                                        const EdgeInsets.fromLTRB(5, 3, 5, 3),
-                                    child: SizedBox(
-                                      height: 40,
-                                      width: 40,
-                                      child: e['type'] == 'Cour'
-                                          ? SvgPicture.asset(
-                                              "assets/images/c.svg",
-                                            )
-                                          : e['type'] == 'Td'
-                                              ? SvgPicture.asset(
-                                                  "assets/images/td.svg")
-                                              : e['type'] == "Tp"
-                                                  ? SvgPicture.asset(
-                                                      "assets/images/tp.svg")
-                                                  : Icon(Icons.pie_chart_sharp,
-                                                      color: Colors.blueAccent),
-                                    ),
-                                  ),
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                          margin: const EdgeInsets.fromLTRB(
-                                              15, 3, 15, 3),
-                                          child: Text('${e["module"]}',
-                                              style: const TextStyle(
-                                                color: Color.fromRGBO(
-                                                    73, 92, 131, 1),
-                                                fontSize: 15,
-                                              ))),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
+                        (e) => GestureDetector(
+
+                            child: FractionallySizedBox(
+                                widthFactor: 0.95,
+                                child: Card(
+                                    child: Container(
+                                      padding: EdgeInsets.fromLTRB(15, 20, 15, 20),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
                                         children: [
                                           Container(
-                                              margin: const EdgeInsets.fromLTRB(
-                                                  15, 3, 15, 3),
-                                              child: Text('${e["type"]}',
-                                                  style: const TextStyle(
-                                                    color: Color.fromRGBO(
-                                                        73, 92, 131, 1),
-                                                    fontSize: 15,
-                                                  ))),
-                                          Text("|",
-                                              style: const TextStyle(
-                                                color: Color.fromRGBO(
-                                                    73, 92, 131, 1),
-                                                fontSize: 15,
-                                              )),
-                                          Container(
-                                              margin: const EdgeInsets.fromLTRB(
-                                                  15, 3, 3, 3),
-                                              child: Text('${dateFormate(e["date"])}',
-                                                  style: const TextStyle(
-                                                    color: Color.fromRGBO(
-                                                        73, 92, 131, 1),
-                                                    fontSize: 15,
-                                                  )))
+                                            decoration: BoxDecoration(
+                                                color: const Color(0xCA9AE1F6),
+                                                borderRadius:
+                                                BorderRadius.circular(200)),
+                                            margin:
+                                            const EdgeInsets.fromLTRB(0, 3, 0, 3),
+                                            child: SizedBox(
+                                              height: 40,
+                                              width: 40,
+                                              child: e['type'] == 'Cour'
+                                                  ? SvgPicture.asset(
+                                                "assets/images/c.svg",
+                                              )
+                                                  : e['type'] == 'Td'
+                                                  ? SvgPicture.asset(
+                                                  "assets/images/td.svg")
+                                                  : SvgPicture.asset(
+                                                  "assets/images/tp.svg"),
+                                            ),
+                                          ),
+                                          Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                            children: [
+                                              Container(
+                                                  margin: const EdgeInsets.fromLTRB(
+                                                      15, 3, 0, 3),
+                                                  child: Text('${e["module"]}',
+                                                      style: const TextStyle(
+                                                        color: Color.fromRGBO(
+                                                            73, 92, 131, 1),
+                                                        fontSize: 15,
+                                                      ))),
+                                              Container(
+                                                  margin: const EdgeInsets.fromLTRB(
+                                                      15, 3, 0, 3),
+                                                  child: Text('${e["name"]}',
+                                                      style: const TextStyle(
+                                                        color: Color.fromRGBO(
+                                                            73, 92, 131, 1),
+                                                        fontSize: 15,
+                                                      ))),
+                                              Row(
+                                                mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                                children: [
+                                                  Container(
+                                                      margin: const EdgeInsets.fromLTRB(
+                                                          15, 3, 15, 3),
+                                                      child: Text('${e["type"]}          |',
+                                                          style: const TextStyle(
+                                                            color: Color.fromRGBO(
+                                                                73, 92, 131, 1),
+                                                            fontSize: 15,
+                                                          ))),
+                                                  Container(
+                                                      margin: const EdgeInsets.fromLTRB(
+                                                          15, 3, 3, 3),
+                                                      child: Text(
+                                                          '${dateFormate(e["date"])}',
+                                                          style: const TextStyle(
+                                                            color: Color.fromRGBO(
+                                                                73, 92, 131, 1),
+                                                            fontSize: 15,
+                                                          )))
+                                                ],
+                                              )
+                                            ],
+                                          )
                                         ],
-                                      )
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ))),
+                                      ),
+                                    )))),
                       )
                       .toList(),
                 ),
