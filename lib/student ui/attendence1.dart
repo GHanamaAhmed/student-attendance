@@ -23,6 +23,7 @@ class _AttendenceState extends State<Attendence> {
     String time = DateFormat.jm().format(dateTime);
     return time;
   }
+
   String dateFormate(originalTime) {
     // تحويل الوقت إلى كائن DateTime
     DateTime dateTime = DateTime.parse(originalTime);
@@ -32,11 +33,12 @@ class _AttendenceState extends State<Attendence> {
 
     // تحويل الوقت المحدث إلى التنسيق الجديد
     String formattedTime =
-    DateFormat('yyyy-MM-dd   HH:mm').format(updatedDateTime);
+        DateFormat('yyyy-MM-dd   HH:mm').format(updatedDateTime);
 
     print(formattedTime); // سيظهر الوقت المحدث: 2023-04-23   09:29
     return formattedTime;
   }
+
   initSocket() {
     socket =
         IO.io('https://simpleapi-p29y.onrender.com/students', <String, dynamic>{
@@ -117,7 +119,7 @@ class _AttendenceState extends State<Attendence> {
                 child: const Center(
                     child: FractionallySizedBox(
                   widthFactor: 0.8,
-                  child: Text("Today’s classes",
+                  child: Text("Attendance",
                       style: TextStyle(
                           fontSize: 25,
                           fontWeight: FontWeight.w500,
@@ -132,7 +134,8 @@ class _AttendenceState extends State<Attendence> {
                             widthFactor: 0.95,
                             child: Card(
                                 child: Container(
-                              padding: const EdgeInsets.fromLTRB(15, 20, 15, 20),
+                              padding:
+                                  const EdgeInsets.fromLTRB(15, 20, 15, 20),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
@@ -156,7 +159,8 @@ class _AttendenceState extends State<Attendence> {
                                               : e['type'] == "Tp"
                                                   ? SvgPicture.asset(
                                                       "assets/images/tp.svg")
-                                                  : const Icon(Icons.pie_chart_sharp,
+                                                  : const Icon(
+                                                      Icons.pie_chart_sharp,
                                                       color: Colors.blueAccent),
                                     ),
                                   ),

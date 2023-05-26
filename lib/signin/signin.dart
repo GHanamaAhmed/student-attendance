@@ -143,8 +143,12 @@ class _SigninState extends State<Signin> with TickerProviderStateMixin {
           specialist: deresponse["data"]["specialist"].toString(),
           year: deresponse["data"]["year"].toString());
       await user.put("user", student);
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => const student_UI()));
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (BuildContext context) => student_UI(),
+        ),
+      );
     }
   }
 

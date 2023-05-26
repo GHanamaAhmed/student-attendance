@@ -16,12 +16,20 @@ class UserManagment extends StatefulWidget {
 
 class _UserManagmentState extends State<UserManagment> {
   var user = Hive.box("user");
+  bool ischange = false;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     widget.isClick.addListener(() {
-      update();
+      if (!ischange) {
+        setState(() {
+          ischange = true;
+          update();
+          sleep(const Duration(seconds:2));
+          ischange = true;
+        });
+      }
     });
     connectF();
   }
@@ -32,6 +40,7 @@ class _UserManagmentState extends State<UserManagment> {
     setState(() {
       connecting = true;
     });
+    print(user!.get("user")!.password.toString());
     var respose;
     respose = await http.post(
         Uri.parse("https://simpleapi-p29y.onrender.com/student/update"),
@@ -42,8 +51,8 @@ class _UserManagmentState extends State<UserManagment> {
           "email": user!.get("user")!.email.toString(),
           "firstname": _controller1.text.toString(),
           "lastname": _controller2.text.toString(),
-          "password": user!.get("user")!.password.toString(),
-          "rpassword": _controller.text.toString(),
+          "password": _controller.text.toString(),
+          "rpassword": _controller3.text.toString(),
           "faculte": faculte,
           "department": department,
           "specialist": specialist,
@@ -68,6 +77,7 @@ class _UserManagmentState extends State<UserManagment> {
                 ],
               )));
     } else {
+      print(deres["data"]);
       late Student student = new Student(
           firstName: deres["data"]["firstname"].toString(),
           lastName: deres["data"]["lastname"].toString(),
@@ -80,7 +90,21 @@ class _UserManagmentState extends State<UserManagment> {
           year: deres["data"]["year"].toString());
       await user.put("user", student);
       print("ffffffffffffffffffffffffffffffffffffffffffff");
-      Navigator.pop(context, 'Cancel');
+      return (showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+                title: const Text('Worring'),
+                content: Text("The change successful"),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context, 'Cancel');
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text('Cancel'),
+                  )
+                ],
+              )));
     }
   }
 
@@ -201,7 +225,8 @@ class _UserManagmentState extends State<UserManagment> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(child: Column(
+    return SingleChildScrollView(
+        child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Row(
@@ -240,12 +265,13 @@ class _UserManagmentState extends State<UserManagment> {
                         border: OutlineInputBorder(
                             borderSide: _controller1.text.isEmpty ||
                                     firstNameClick == true
-                                ? const BorderSide(color: Colors.redAccent, width: 2)
+                                ? const BorderSide(
+                                    color: Colors.redAccent, width: 2)
                                 : const BorderSide(
                                     color: Colors.blueAccent, width: 2)),
                         filled: true,
-                        hintStyle:
-                            const TextStyle(color: Color.fromRGBO(73, 69, 79, 0.7)),
+                        hintStyle: const TextStyle(
+                            color: Color.fromRGBO(73, 69, 79, 0.7)),
                         hintText: "first name",
                         fillColor: const Color.fromRGBO(245, 245, 245, 0.6)),
                   ),
@@ -282,12 +308,13 @@ class _UserManagmentState extends State<UserManagment> {
                             borderSide: (_controller1.text.toString() ==
                                         _controller2.text.toString()) ||
                                     lastNameClick == false
-                                ? const BorderSide(color: Colors.blueAccent, width: 2)
+                                ? const BorderSide(
+                                    color: Colors.blueAccent, width: 2)
                                 : const BorderSide(
                                     color: Colors.redAccent, width: 2)),
                         filled: true,
-                        hintStyle:
-                            const TextStyle(color: Color.fromRGBO(73, 69, 79, 0.7)),
+                        hintStyle: const TextStyle(
+                            color: Color.fromRGBO(73, 69, 79, 0.7)),
                         hintText: "last name",
                         fillColor: const Color.fromRGBO(245, 245, 245, 0.6)),
                   ),
@@ -319,16 +346,17 @@ class _UserManagmentState extends State<UserManagment> {
                       : Icons.visibility_off),
                 ),
                 enabledBorder: OutlineInputBorder(
-                    borderSide: _controller1.text.length > 7 || password == 0
+                    borderSide: _controller.text.length > 7 || password == 0
                         ? BorderSide.none
                         : const BorderSide(color: Colors.redAccent, width: 2)),
                 border: OutlineInputBorder(
-                    borderSide: _controller1.text.length > 7 || password == 0
+                    borderSide: _controller.text.length > 7 || password == 0
                         ? const BorderSide(color: Colors.blueAccent, width: 2)
                         : const BorderSide(color: Colors.redAccent, width: 2)),
                 filled: true,
-                hintStyle: const TextStyle(color: Color.fromRGBO(73, 69, 79, 0.7)),
-                hintText: "Password",
+                hintStyle:
+                    const TextStyle(color: Color.fromRGBO(73, 69, 79, 0.7)),
+                hintText: "Old password",
                 fillColor: const Color.fromRGBO(245, 245, 245, 0.6)),
           ),
           margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
@@ -358,20 +386,20 @@ class _UserManagmentState extends State<UserManagment> {
                       : Icons.visibility_off),
                 ),
                 enabledBorder: OutlineInputBorder(
-                    borderSide: (_controller.text.toString() ==
-                                _controller3.text.toString()) ||
+                    borderSide:
+                                _controller3.text.toString().length>0 ||
                             resetPasword == 0
                         ? BorderSide.none
                         : const BorderSide(color: Colors.redAccent, width: 2)),
                 border: OutlineInputBorder(
-                    borderSide: (_controller.text.toString() ==
-                                _controller3.text.toString()) ||
+                    borderSide: _controller3.text.toString().length>0||
                             resetPasword == 0
                         ? const BorderSide(color: Colors.blueAccent, width: 2)
                         : const BorderSide(color: Colors.redAccent, width: 2)),
                 filled: true,
-                hintStyle: const TextStyle(color: Color.fromRGBO(73, 69, 79, 0.7)),
-                hintText: "Reset password",
+                hintStyle:
+                    const TextStyle(color: Color.fromRGBO(73, 69, 79, 0.7)),
+                hintText: "New password",
                 fillColor: const Color.fromRGBO(245, 245, 245, 0.6)),
           ),
           margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
@@ -382,58 +410,54 @@ class _UserManagmentState extends State<UserManagment> {
               Container(
                 margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
                 child: DropdownButtonFormField<String>(
-                        onTap: () {
-                          setState(() {
-                            faculteClick = true;
-                          });
-                        },
-                        isExpanded: true,
-                        decoration: InputDecoration(
-                            enabledBorder: OutlineInputBorder(
-                                borderSide:
-                                    (faculteClick == true && faculte == "")
-                                        ? const BorderSide(
-                                            color: Colors.redAccent, width: 2)
-                                        : BorderSide.none),
-                            border: OutlineInputBorder(
-                                borderSide:
-                                    (faculteClick == true && faculte == "")
-                                        ? const BorderSide(
-                                            color: Colors.redAccent, width: 2)
-                                        : const BorderSide(
-                                            color: Colors.blueAccent,
-                                            width: 2)),
-                            hintStyle: const TextStyle(
-                                color: Color.fromRGBO(73, 69, 79, 0.7)),
-                            hintText: "faculte",
-                            filled: true,
-                            fillColor: const Color.fromRGBO(245, 245, 245, 0.6)),
-                        // Step 4.
-                        items: isCf == false
-                            ? null
-                            : facultes
-                                .map<DropdownMenuItem<String>>((String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(
-                                    value,
-                                    style: const TextStyle(fontSize: 15),
-                                  ),
-                                );
-                              }).toList(),
-                        // Step 5.
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            isCD = false;
-                            isCS = false;
-                            _key2.currentState?.reset();
-                          });
-                          setState(() {
-                            faculte = newValue!;
-                            connectD();
-                          });
-                        },
-                      ),
+                  onTap: () {
+                    setState(() {
+                      faculteClick = true;
+                    });
+                  },
+                  isExpanded: true,
+                  decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: (faculteClick == true && faculte == "")
+                              ? const BorderSide(
+                                  color: Colors.redAccent, width: 2)
+                              : BorderSide.none),
+                      border: OutlineInputBorder(
+                          borderSide: (faculteClick == true && faculte == "")
+                              ? const BorderSide(
+                                  color: Colors.redAccent, width: 2)
+                              : const BorderSide(
+                                  color: Colors.blueAccent, width: 2)),
+                      hintStyle: const TextStyle(
+                          color: Color.fromRGBO(73, 69, 79, 0.7)),
+                      hintText: "faculte",
+                      filled: true,
+                      fillColor: const Color.fromRGBO(245, 245, 245, 0.6)),
+                  // Step 4.
+                  items: isCf == false
+                      ? null
+                      : facultes.map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(
+                              value,
+                              style: const TextStyle(fontSize: 15),
+                            ),
+                          );
+                        }).toList(),
+                  // Step 5.
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      isCD = false;
+                      isCS = false;
+                      _key2.currentState?.reset();
+                    });
+                    setState(() {
+                      faculte = newValue!;
+                      connectD();
+                    });
+                  },
+                ),
               ),
               Container(
                 margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
@@ -446,17 +470,20 @@ class _UserManagmentState extends State<UserManagment> {
                   isExpanded: true,
                   decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
-                          borderSide: departmentClick == true &&
-                                  department == ""
-                              ? const BorderSide(color: Colors.redAccent, width: 2)
-                              : BorderSide.none),
+                          borderSide:
+                              departmentClick == true && department == ""
+                                  ? const BorderSide(
+                                      color: Colors.redAccent, width: 2)
+                                  : BorderSide.none),
                       border: OutlineInputBorder(
-                          borderSide: departmentClick == true &&
-                                  department == ""
-                              ? const BorderSide(color: Colors.redAccent, width: 2)
-                              : const BorderSide(color: Colors.blueAccent, width: 2)),
-                      hintStyle:
-                          const TextStyle(color: Color.fromRGBO(73, 69, 79, 0.7)),
+                          borderSide:
+                              departmentClick == true && department == ""
+                                  ? const BorderSide(
+                                      color: Colors.redAccent, width: 2)
+                                  : const BorderSide(
+                                      color: Colors.blueAccent, width: 2)),
+                      hintStyle: const TextStyle(
+                          color: Color.fromRGBO(73, 69, 79, 0.7)),
                       hintText: "department",
                       filled: true,
                       fillColor: const Color.fromRGBO(245, 245, 245, 0.6)),
@@ -499,17 +526,20 @@ class _UserManagmentState extends State<UserManagment> {
                   isExpanded: true,
                   decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
-                          borderSide: specialistClick == true &&
-                                  specialist == ""
-                              ? const BorderSide(color: Colors.redAccent, width: 2)
-                              : BorderSide.none),
+                          borderSide:
+                              specialistClick == true && specialist == ""
+                                  ? const BorderSide(
+                                      color: Colors.redAccent, width: 2)
+                                  : BorderSide.none),
                       border: OutlineInputBorder(
-                          borderSide: specialistClick == true &&
-                                  specialist == ""
-                              ? const BorderSide(color: Colors.redAccent, width: 2)
-                              : const BorderSide(color: Colors.blueAccent, width: 2)),
-                      hintStyle:
-                          const TextStyle(color: Color.fromRGBO(73, 69, 79, 0.7)),
+                          borderSide:
+                              specialistClick == true && specialist == ""
+                                  ? const BorderSide(
+                                      color: Colors.redAccent, width: 2)
+                                  : const BorderSide(
+                                      color: Colors.blueAccent, width: 2)),
+                      hintStyle: const TextStyle(
+                          color: Color.fromRGBO(73, 69, 79, 0.7)),
                       hintText: "specialist",
                       filled: true,
                       fillColor: const Color.fromRGBO(245, 245, 245, 0.6)),
@@ -547,17 +577,20 @@ class _UserManagmentState extends State<UserManagment> {
                   isExpanded: true,
                   decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
-                          borderSide: academicYearClick == true &&
-                                  academicYear == ""
-                              ? const BorderSide(color: Colors.redAccent, width: 2)
-                              : BorderSide.none),
+                          borderSide:
+                              academicYearClick == true && academicYear == ""
+                                  ? const BorderSide(
+                                      color: Colors.redAccent, width: 2)
+                                  : BorderSide.none),
                       border: OutlineInputBorder(
-                          borderSide: academicYearClick == true &&
-                                  academicYear == ""
-                              ? const BorderSide(color: Colors.redAccent, width: 2)
-                              : const BorderSide(color: Colors.blueAccent, width: 2)),
-                      hintStyle:
-                          const TextStyle(color: Color.fromRGBO(73, 69, 79, 0.7)),
+                          borderSide:
+                              academicYearClick == true && academicYear == ""
+                                  ? const BorderSide(
+                                      color: Colors.redAccent, width: 2)
+                                  : const BorderSide(
+                                      color: Colors.blueAccent, width: 2)),
+                      hintStyle: const TextStyle(
+                          color: Color.fromRGBO(73, 69, 79, 0.7)),
                       hintText: "academic year",
                       filled: true,
                       fillColor: const Color.fromRGBO(245, 245, 245, 0.6)),

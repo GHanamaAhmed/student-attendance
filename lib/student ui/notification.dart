@@ -46,7 +46,8 @@ class _NotificationsState extends State<Notifications> {
       }
     });
   }
-  String dateFormate(originalTime)  {
+
+  String dateFormate(originalTime) {
     // تحويل الوقت إلى كائن DateTime
     DateTime dateTime = DateTime.parse(originalTime);
 
@@ -54,11 +55,13 @@ class _NotificationsState extends State<Notifications> {
     DateTime updatedDateTime = dateTime.add(Duration(hours: 1));
 
     // تحويل الوقت المحدث إلى التنسيق الجديد
-    String formattedTime = DateFormat('yyyy-MM-dd   HH:mm').format(updatedDateTime);
+    String formattedTime =
+        DateFormat('yyyy-MM-dd   HH:mm').format(updatedDateTime);
 
     print(formattedTime); // سيظهر الوقت المحدث: 2023-04-23   09:29
     return formattedTime;
   }
+
   @override
   void dispose() {
     // TODO: implement dispose
@@ -103,89 +106,92 @@ class _NotificationsState extends State<Notifications> {
                   children: teacher
                       .map(
                         (e) => GestureDetector(
-
                             child: FractionallySizedBox(
                                 widthFactor: 0.95,
                                 child: Card(
                                     child: Container(
-                                      padding: EdgeInsets.fromLTRB(15, 20, 15, 20),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
+                                  padding: EdgeInsets.fromLTRB(15, 20, 15, 20),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        decoration: BoxDecoration(
+                                            color: const Color(0xCA9AE1F6),
+                                            borderRadius:
+                                                BorderRadius.circular(200)),
+                                        margin: const EdgeInsets.fromLTRB(
+                                            0, 3, 0, 3),
+                                        child: SizedBox(
+                                          height: 40,
+                                          width: 40,
+                                          child: e['type'] == 'Cour'
+                                              ? SvgPicture.asset(
+                                                  "assets/images/c.svg",
+                                                )
+                                              : e['type'] == 'Td'
+                                                  ? SvgPicture.asset(
+                                                      "assets/images/td.svg")
+                                                  : SvgPicture.asset(
+                                                      "assets/images/tp.svg"),
+                                        ),
+                                      ),
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Container(
-                                            decoration: BoxDecoration(
-                                                color: const Color(0xCA9AE1F6),
-                                                borderRadius:
-                                                BorderRadius.circular(200)),
-                                            margin:
-                                            const EdgeInsets.fromLTRB(0, 3, 0, 3),
-                                            child: SizedBox(
-                                              height: 40,
-                                              width: 40,
-                                              child: e['type'] == 'Cour'
-                                                  ? SvgPicture.asset(
-                                                "assets/images/c.svg",
-                                              )
-                                                  : e['type'] == 'Td'
-                                                  ? SvgPicture.asset(
-                                                  "assets/images/td.svg")
-                                                  : SvgPicture.asset(
-                                                  "assets/images/tp.svg"),
-                                            ),
-                                          ),
-                                          Column(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                              margin: const EdgeInsets.fromLTRB(
+                                                  15, 3, 0, 3),
+                                              child: Text('${e["module"]}',
+                                                  style: const TextStyle(
+                                                    color: Color.fromRGBO(
+                                                        73, 92, 131, 1),
+                                                    fontSize: 15,
+                                                  ))),
+                                          Container(
+                                              margin: const EdgeInsets.fromLTRB(
+                                                  15, 3, 0, 3),
+                                              child: Text('${e["name"]}',
+                                                  style: const TextStyle(
+                                                    color: Color.fromRGBO(
+                                                        73, 92, 131, 1),
+                                                    fontSize: 15,
+                                                  ))),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
                                             children: [
                                               Container(
-                                                  margin: const EdgeInsets.fromLTRB(
-                                                      15, 3, 0, 3),
-                                                  child: Text('${e["module"]}',
+                                                  margin:
+                                                      const EdgeInsets.fromLTRB(
+                                                          15, 3, 15, 3),
+                                                  child: Text(
+                                                      '${e["type"]}          |',
                                                       style: const TextStyle(
                                                         color: Color.fromRGBO(
                                                             73, 92, 131, 1),
                                                         fontSize: 15,
                                                       ))),
                                               Container(
-                                                  margin: const EdgeInsets.fromLTRB(
-                                                      15, 3, 0, 3),
-                                                  child: Text('${e["name"]}',
+                                                  margin:
+                                                      const EdgeInsets.fromLTRB(
+                                                          15, 3, 3, 3),
+                                                  child: Text(
+                                                      '${dateFormate(e["date"])}',
                                                       style: const TextStyle(
                                                         color: Color.fromRGBO(
                                                             73, 92, 131, 1),
                                                         fontSize: 15,
-                                                      ))),
-                                              Row(
-                                                mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                                children: [
-                                                  Container(
-                                                      margin: const EdgeInsets.fromLTRB(
-                                                          15, 3, 15, 3),
-                                                      child: Text('${e["type"]}          |',
-                                                          style: const TextStyle(
-                                                            color: Color.fromRGBO(
-                                                                73, 92, 131, 1),
-                                                            fontSize: 15,
-                                                          ))),
-                                                  Container(
-                                                      margin: const EdgeInsets.fromLTRB(
-                                                          15, 3, 3, 3),
-                                                      child: Text(
-                                                          '${dateFormate(e["date"])}',
-                                                          style: const TextStyle(
-                                                            color: Color.fromRGBO(
-                                                                73, 92, 131, 1),
-                                                            fontSize: 15,
-                                                          )))
-                                                ],
-                                              )
+                                                      )))
                                             ],
                                           )
                                         ],
-                                      ),
-                                    )))),
+                                      )
+                                    ],
+                                  ),
+                                )))),
                       )
                       .toList(),
                 ),

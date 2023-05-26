@@ -20,18 +20,24 @@ class _PersonState extends State<Person> {
     setState(() {
       List<String> words = faculte.split(" ");
 
-      if (words.isNotEmpty) {
+      if (words.isNotEmpty&&faculte.indexOf(" ")>=0) {
         faculte = "${words.first[0]}${words.last[0]}";
+      }else{
+        faculte = "${words.first[0]}";
       }
       words = departement.split(" ");
 
-      if (words.isNotEmpty) {
+      if (words.isNotEmpty&&departement.indexOf(" ")>=0) {
         departement = "${words.first[0]}${words.last[0]}";
+      }else{
+        departement = "${words.first[0]}";
       }
       words = specialist.split(" ");
 
-      if (words.isNotEmpty) {
+      if (words.isNotEmpty&&specialist.indexOf(" ")>0) {
         specialist = "${words.first[0]}${words.last[0]}";
+      }else{
+        specialist = "${words.first[0]}";
       }
     });
   }
