@@ -162,7 +162,7 @@ class _ClassState extends State<Class> {
                           GestureDetector(
                             child: Text(
                               "All",
-                              style: TextStyle(fontSize: 18),
+                              style: TextStyle(fontSize: 18,color: Color.fromRGBO(73, 92, 131, 1))
                             ),
                             onTap: () {
                               Navigator.push(

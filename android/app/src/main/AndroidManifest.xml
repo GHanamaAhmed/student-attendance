@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.skoni.crow.ghanama.ss.skoni">
    <application
-        android:label="skoni"
+        android:label="QrAttend"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

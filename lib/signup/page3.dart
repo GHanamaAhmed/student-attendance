@@ -39,7 +39,7 @@ class Page3 extends StatefulWidget {
 }
 
 class _Page1State extends State<Page3> {
-  var user=Hive.box("user");
+  var user = Hive.box("user");
   @override
   void initState() {
     // TODO: implement initState
@@ -188,7 +188,6 @@ class _Page1State extends State<Page3> {
             "year": widget.year.value,
             "code": _controller.text.toString()
           });
-
     } else {
       respose = await http.post(
           Uri.parse("https://simpleapi-p29y.onrender.com/teacher/signup"),
@@ -247,93 +246,99 @@ class _Page1State extends State<Page3> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: FractionallySizedBox(
-        widthFactor: 0.8,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    "Authentication",
-                    style: TextStyle(fontSize: 20, color: Colors.blueAccent),
-                  )
-                ],
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-              child: TextFormField(
-                controller: _controller,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                    suffixIcon: _controller.text.length > 0
-                        ? IconButton(
-                            onPressed: () {
-                              _controller.clear();
-                              setState(() {});
-                            },
-                            icon: const Icon(Icons.clear),
-                          )
-                        : null,
-                    enabledBorder:
-                        const OutlineInputBorder(borderSide: BorderSide.none),
-                    border: const OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: Colors.blueAccent, width: 2)),
-                    hintStyle:
-                        const TextStyle(color: Color.fromRGBO(73, 69, 79, 0.7)),
-                    hintText: "Code",
-                    filled: true,
-                    fillColor: const Color.fromRGBO(245, 245, 245, 0.6)),
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-              child: Row(
+      child: SingleChildScrollView(
+          reverse: true,
+          scrollDirection: Axis.vertical,
+          child: Center(
+            child: FractionallySizedBox(
+              widthFactor: 0.8,
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    margin: const EdgeInsets.fromLTRB(7, 0, 0, 0),
-                    child: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          resend();
-                        });
-                      },
-                      child: new Text(
-                        "resend code",
-                        style: const TextStyle(
-                            color: Color.fromRGBO(30, 64, 138, 1)),
-                      ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          "Authentication",
+                          style:
+                              TextStyle(fontSize: 20, color: Colors.blueAccent),
+                        )
+                      ],
                     ),
-                  )
+                  ),
+                  Container(
+                    margin: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                    child: TextFormField(
+                      controller: _controller,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                          suffixIcon: _controller.text.length > 0
+                              ? IconButton(
+                                  onPressed: () {
+                                    _controller.clear();
+                                    setState(() {});
+                                  },
+                                  icon: const Icon(Icons.clear),
+                                )
+                              : null,
+                          enabledBorder: const OutlineInputBorder(
+                              borderSide: BorderSide.none),
+                          border: const OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.blueAccent, width: 2)),
+                          hintStyle: const TextStyle(
+                              color: Color.fromRGBO(73, 69, 79, 0.7)),
+                          hintText: "Code",
+                          filled: true,
+                          fillColor: const Color.fromRGBO(245, 245, 245, 0.6)),
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.fromLTRB(7, 0, 0, 0),
+                          child: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                resend();
+                              });
+                            },
+                            child: new Text(
+                              "resend code",
+                              style: const TextStyle(
+                                  color: Color.fromRGBO(30, 64, 138, 1)),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Container(
+                    width: double.infinity,
+                    margin: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.fromLTRB(0, 20, 0, 20)),
+                      onPressed: () => signup(),
+                      child: connecting == false
+                          ? Text("Sign up")
+                          : SizedBox(
+                              height: 20,
+                              width: 20,
+                              child: const Center(
+                                  child: CircularProgressIndicator(
+                                color: Colors.white,
+                              ))),
+                    ),
+                  ),
                 ],
               ),
             ),
-            Container(
-              width: double.infinity,
-              margin: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.fromLTRB(0, 20, 0, 20)),
-                onPressed: () => signup(),
-                child: connecting == false
-                    ? Text("Sign up")
-                    : SizedBox(
-                        height: 20,
-                        width: 20,
-                        child: const Center(
-                            child: CircularProgressIndicator(
-                          color: Colors.white,
-                        ))),
-              ),
-            ),
-          ],
-        ),
-      ),
+          )),
     );
   }
 }

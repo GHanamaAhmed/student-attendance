@@ -242,170 +242,241 @@ class _Page2State extends State<Page2> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: FractionallySizedBox(
-        widthFactor: 0.8,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Expanded(
-                    flex: 1,
-                    child: Container(
-                      margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
-                      child: TextFormField(
-                        onChanged: (value) {
-                          setState(() {});
-                        },
-                        controller: _controller1,
-                        onTap: () {
-                          setState(() {
-                            firstNameClick = true;
-                          });
-                        },
-                        decoration: InputDecoration(
-                            suffixIcon: _controller1.text.length > 0
-                                ? IconButton(
-                                    onPressed: () {
-                                      _controller1.clear();
-                                      setState(() {});
-                                    },
-                                    icon: Icon(Icons.clear),
-                                  )
-                                : null,
-                            enabledBorder: OutlineInputBorder(
-                                borderSide: _controller1.text.isNotEmpty ||
-                                        firstNameClick == false
-                                    ? BorderSide.none
-                                    : BorderSide(
-                                        color: Colors.redAccent, width: 2)),
-                            border: OutlineInputBorder(
-                                borderSide: _controller1.text.isEmpty ||
-                                        firstNameClick == true
-                                    ? BorderSide(
-                                        color: Colors.redAccent, width: 2)
-                                    : BorderSide(
-                                        color: Colors.blueAccent, width: 2)),
-                            filled: true,
-                            hintStyle: TextStyle(
-                                color: Color.fromRGBO(73, 69, 79, 0.7)),
-                            hintText: "first name",
-                            fillColor: Color.fromRGBO(245, 245, 245, 0.6)),
-                      ),
-                    )),
-                Expanded(
-                    flex: 1,
-                    child: Container(
-                      margin: EdgeInsets.fromLTRB(5, 0, 0, 0),
-                      child: TextFormField(
-                        controller: _controller2,
-                        onChanged: (value) => setState(() {}),
-                        onTap: () {
-                          setState(() {
-                            lastNameClick = true;
-                          });
-                        },
-                        decoration: InputDecoration(
-                            suffixIcon: _controller2.text.length > 0
-                                ? IconButton(
-                                    onPressed: () {
-                                      _controller2.clear();
-                                      setState(() {});
-                                    },
-                                    icon: Icon(Icons.clear),
-                                  )
-                                : null,
-                            enabledBorder: OutlineInputBorder(
-                                borderSide: _controller2.text.isNotEmpty ||
-                                        lastNameClick == false
-                                    ? BorderSide.none
-                                    : BorderSide(
-                                        color: Colors.redAccent, width: 2)),
-                            border: OutlineInputBorder(
-                                borderSide: (_controller1.text.toString() ==
-                                            _controller2.text.toString()) ||
-                                        lastNameClick == false
-                                    ? BorderSide(
-                                        color: Colors.blueAccent, width: 2)
-                                    : BorderSide(
-                                        color: Colors.redAccent, width: 2)),
-                            filled: true,
-                            hintStyle: TextStyle(
-                                color: Color.fromRGBO(73, 69, 79, 0.7)),
-                            hintText: "last name",
-                            fillColor: Color.fromRGBO(245, 245, 245, 0.6)),
-                      ),
-                    )),
-              ],
-            ),
-            Container(
-              margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-              child: DropdownButtonFormField<String>(
-                onTap: () {
-                  setState(() {
-                    sexclick = true;
-                  });
-                },
-                isExpanded: true,
-                decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: (sexclick == true && sex == "")
-                            ? BorderSide(color: Colors.redAccent, width: 2)
-                            : BorderSide.none),
-                    border: OutlineInputBorder(
-                        borderSide: (sexclick == true && sex == "")
-                            ? BorderSide(color: Colors.redAccent, width: 2)
-                            : BorderSide(color: Colors.blueAccent, width: 2)),
-                    hintStyle:
-                        TextStyle(color: Color.fromRGBO(73, 69, 79, 0.7)),
-                    hintText: "sex",
-                    filled: true,
-                    fillColor: Color.fromRGBO(245, 245, 245, 0.6)),
-                // Step 4.
-                items: <String>['Male', 'Female']
-                    .map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(
-                      value,
-                      style: TextStyle(fontSize: 15),
+      child: SingleChildScrollView(
+          reverse: true,
+          scrollDirection: Axis.vertical,
+          child: Center(
+            child: FractionallySizedBox(
+              widthFactor: 0.8,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Expanded(
+                          flex: 1,
+                          child: Container(
+                            margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
+                            child: TextFormField(
+                              onChanged: (value) {
+                                setState(() {});
+                              },
+                              controller: _controller1,
+                              onTap: () {
+                                setState(() {
+                                  firstNameClick = true;
+                                });
+                              },
+                              decoration: InputDecoration(
+                                  suffixIcon: _controller1.text.length > 0
+                                      ? IconButton(
+                                          onPressed: () {
+                                            _controller1.clear();
+                                            setState(() {});
+                                          },
+                                          icon: Icon(Icons.clear),
+                                        )
+                                      : null,
+                                  enabledBorder: OutlineInputBorder(
+                                      borderSide: _controller1.text.isNotEmpty ||
+                                              firstNameClick == false
+                                          ? BorderSide.none
+                                          : BorderSide(
+                                              color: Colors.redAccent, width: 2)),
+                                  border: OutlineInputBorder(
+                                      borderSide: _controller1.text.isEmpty ||
+                                              firstNameClick == true
+                                          ? BorderSide(
+                                              color: Colors.redAccent, width: 2)
+                                          : BorderSide(
+                                              color: Colors.blueAccent,
+                                              width: 2)),
+                                  filled: true,
+                                  hintStyle: TextStyle(
+                                      color: Color.fromRGBO(73, 69, 79, 0.7)),
+                                  hintText: "first name",
+                                  fillColor: Color.fromRGBO(245, 245, 245, 0.6)),
+                            ),
+                          )),
+                      Expanded(
+                          flex: 1,
+                          child: Container(
+                            margin: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                            child: TextFormField(
+                              controller: _controller2,
+                              onChanged: (value) => setState(() {}),
+                              onTap: () {
+                                setState(() {
+                                  lastNameClick = true;
+                                });
+                              },
+                              decoration: InputDecoration(
+                                  suffixIcon: _controller2.text.length > 0
+                                      ? IconButton(
+                                          onPressed: () {
+                                            _controller2.clear();
+                                            setState(() {});
+                                          },
+                                          icon: Icon(Icons.clear),
+                                        )
+                                      : null,
+                                  enabledBorder: OutlineInputBorder(
+                                      borderSide: _controller2.text.isNotEmpty ||
+                                              lastNameClick == false
+                                          ? BorderSide.none
+                                          : BorderSide(
+                                              color: Colors.redAccent, width: 2)),
+                                  border: OutlineInputBorder(
+                                      borderSide: (_controller1.text.toString() ==
+                                                  _controller2.text.toString()) ||
+                                              lastNameClick == false
+                                          ? BorderSide(
+                                              color: Colors.blueAccent, width: 2)
+                                          : BorderSide(
+                                              color: Colors.redAccent, width: 2)),
+                                  filled: true,
+                                  hintStyle: TextStyle(
+                                      color: Color.fromRGBO(73, 69, 79, 0.7)),
+                                  hintText: "last name",
+                                  fillColor: Color.fromRGBO(245, 245, 245, 0.6)),
+                            ),
+                          )),
+                    ],
+                  ),
+                  Container(
+                    margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                    child: DropdownButtonFormField<String>(
+                      onTap: () {
+                        setState(() {
+                          sexclick = true;
+                        });
+                      },
+                      isExpanded: true,
+                      decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: (sexclick == true && sex == "")
+                                  ? BorderSide(color: Colors.redAccent, width: 2)
+                                  : BorderSide.none),
+                          border: OutlineInputBorder(
+                              borderSide: (sexclick == true && sex == "")
+                                  ? BorderSide(color: Colors.redAccent, width: 2)
+                                  : BorderSide(
+                                      color: Colors.blueAccent, width: 2)),
+                          hintStyle:
+                              TextStyle(color: Color.fromRGBO(73, 69, 79, 0.7)),
+                          hintText: "sex",
+                          filled: true,
+                          fillColor: Color.fromRGBO(245, 245, 245, 0.6)),
+                      // Step 4.
+                      items: <String>['Male', 'Female']
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(
+                            value,
+                            style: TextStyle(fontSize: 15),
+                          ),
+                        );
+                      }).toList(),
+                      // Step 5.
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          sex = newValue!;
+                        });
+                      },
                     ),
-                  );
-                }).toList(),
-                // Step 5.
-                onChanged: (String? newValue) {
-                  setState(() {
-                    sex = newValue!;
-                  });
-                },
-              ),
-            ),
-            widget.dDvalue.value == "Student"
-                ? Container(
-                    child: Column(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                          child: isCf
-                              ? DropdownButtonFormField<String>(
+                  ),
+                  widget.dDvalue.value == "Student"
+                      ? Container(
+                          child: Column(
+                            children: [
+                              Container(
+                                margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                                child: isCf
+                                    ? DropdownButtonFormField<String>(
+                                        onTap: () {
+                                          setState(() {
+                                            faculteClick = true;
+                                          });
+                                        },
+                                        isExpanded: true,
+                                        decoration: InputDecoration(
+                                            enabledBorder: OutlineInputBorder(
+                                                borderSide: (faculteClick ==
+                                                            true &&
+                                                        faculte == "")
+                                                    ? BorderSide(
+                                                        color: Colors.redAccent,
+                                                        width: 2)
+                                                    : BorderSide.none),
+                                            border: OutlineInputBorder(
+                                                borderSide: (faculteClick ==
+                                                            true &&
+                                                        faculte == "")
+                                                    ? BorderSide(
+                                                        color: Colors.redAccent,
+                                                        width: 2)
+                                                    : BorderSide(
+                                                        color: Colors.blueAccent,
+                                                        width: 2)),
+                                            hintStyle: TextStyle(
+                                                color: Color.fromRGBO(
+                                                    73, 69, 79, 0.7)),
+                                            hintText: "faculte",
+                                            filled: true,
+                                            fillColor: Color.fromRGBO(
+                                                245, 245, 245, 0.6)),
+                                        // Step 4.
+                                        items: isCf == false
+                                            ? null
+                                            : facultes
+                                                .map<DropdownMenuItem<String>>(
+                                                    (String value) {
+                                                return DropdownMenuItem<String>(
+                                                  value: value,
+                                                  child: Text(
+                                                    value,
+                                                    style:
+                                                        TextStyle(fontSize: 15),
+                                                  ),
+                                                );
+                                              }).toList(),
+                                        // Step 5.
+                                        onChanged: (String? newValue) {
+                                          setState(() {
+                                            isCD = false;
+                                            isCS = false;
+                                            _key2.currentState?.reset();
+                                          });
+                                          setState(() {
+                                            faculte = newValue!;
+                                            connectD();
+                                          });
+                                        },
+                                      )
+                                    : null,
+                              ),
+                              Container(
+                                margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                                child: DropdownButtonFormField<String>(
                                   onTap: () {
                                     setState(() {
-                                      faculteClick = true;
+                                      departmentClick = true;
                                     });
                                   },
                                   isExpanded: true,
                                   decoration: InputDecoration(
                                       enabledBorder: OutlineInputBorder(
-                                          borderSide: (faculteClick == true &&
-                                                  faculte == "")
+                                          borderSide: departmentClick == true &&
+                                                  department == ""
                                               ? BorderSide(
                                                   color: Colors.redAccent,
                                                   width: 2)
                                               : BorderSide.none),
                                       border: OutlineInputBorder(
-                                          borderSide: (faculteClick == true &&
-                                                  faculte == "")
+                                          borderSide: departmentClick == true &&
+                                                  department == ""
                                               ? BorderSide(
                                                   color: Colors.redAccent,
                                                   width: 2)
@@ -413,16 +484,15 @@ class _Page2State extends State<Page2> {
                                                   color: Colors.blueAccent,
                                                   width: 2)),
                                       hintStyle: TextStyle(
-                                          color:
-                                              Color.fromRGBO(73, 69, 79, 0.7)),
-                                      hintText: "faculte",
+                                          color: Color.fromRGBO(73, 69, 79, 0.7)),
+                                      hintText: "department",
                                       filled: true,
                                       fillColor:
                                           Color.fromRGBO(245, 245, 245, 0.6)),
+
                                   // Step 4.
-                                  items: isCf == false
-                                      ? null
-                                      : facultes.map<DropdownMenuItem<String>>(
+                                  items: isCD
+                                      ? departments.map<DropdownMenuItem<String>>(
                                           (String value) {
                                           return DropdownMenuItem<String>(
                                             value: value,
@@ -431,275 +501,228 @@ class _Page2State extends State<Page2> {
                                               style: TextStyle(fontSize: 15),
                                             ),
                                           );
-                                        }).toList(),
+                                        }).toList()
+                                      : null,
                                   // Step 5.
                                   onChanged: (String? newValue) {
                                     setState(() {
-                                      isCD = false;
+                                      _key1.currentState?.reset();
                                       isCS = false;
-                                      _key2.currentState?.reset();
                                     });
                                     setState(() {
-                                      faculte = newValue!;
-                                      connectD();
+                                      department = newValue!;
+                                      connectS();
                                     });
                                   },
-                                )
-                              : null,
-                        ),
-                        Container(
-                          margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                          child: DropdownButtonFormField<String>(
-                            onTap: () {
-                              setState(() {
-                                departmentClick = true;
-                              });
-                            },
-                            isExpanded: true,
-                            decoration: InputDecoration(
-                                enabledBorder: OutlineInputBorder(
-                                    borderSide: departmentClick == true &&
-                                            department == ""
-                                        ? BorderSide(
-                                            color: Colors.redAccent, width: 2)
-                                        : BorderSide.none),
-                                border: OutlineInputBorder(
-                                    borderSide: departmentClick == true &&
-                                            department == ""
-                                        ? BorderSide(
-                                            color: Colors.redAccent, width: 2)
-                                        : BorderSide(
-                                            color: Colors.blueAccent,
-                                            width: 2)),
-                                hintStyle: TextStyle(
-                                    color: Color.fromRGBO(73, 69, 79, 0.7)),
-                                hintText: "department",
-                                filled: true,
-                                fillColor: Color.fromRGBO(245, 245, 245, 0.6)),
-
-                            // Step 4.
-                            items: isCD
-                                ? departments.map<DropdownMenuItem<String>>(
-                                    (String value) {
-                                    return DropdownMenuItem<String>(
-                                      value: value,
-                                      child: Text(
-                                        value,
-                                        style: TextStyle(fontSize: 15),
-                                      ),
-                                    );
-                                  }).toList()
-                                : null,
-                            // Step 5.
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                _key1.currentState?.reset();
-                                isCS = false;
-                              });
-                              setState(() {
-                                department = newValue!;
-                                connectS();
-                              });
-                            },
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                          child: DropdownButtonFormField<String>(
-                            onTap: () {
-                              setState(() {
-                                specialistClick = true;
-                              });
-                            },
-                            key: _key1,
-                            isExpanded: true,
-                            decoration: InputDecoration(
-                                enabledBorder: OutlineInputBorder(
-                                    borderSide: specialistClick == true &&
-                                            specialist == ""
-                                        ? BorderSide(
-                                            color: Colors.redAccent, width: 2)
-                                        : BorderSide.none),
-                                border: OutlineInputBorder(
-                                    borderSide: specialistClick == true &&
-                                            specialist == ""
-                                        ? BorderSide(
-                                            color: Colors.redAccent, width: 2)
-                                        : BorderSide(
-                                            color: Colors.blueAccent,
-                                            width: 2)),
-                                hintStyle: TextStyle(
-                                    color: Color.fromRGBO(73, 69, 79, 0.7)),
-                                hintText: "specialist",
-                                filled: true,
-                                fillColor: Color.fromRGBO(245, 245, 245, 0.6)),
-
-                            // Step 4.
-                            items: isCS
-                                ? specialists.map<DropdownMenuItem<String>>(
-                                    (String value) {
-                                    return DropdownMenuItem<String>(
-                                      value: value,
-                                      child: Text(
-                                        value,
-                                        style: TextStyle(fontSize: 15),
-                                      ),
-                                    );
-                                  }).toList()
-                                : null,
-                            onChanged: isCS
-                                ? (String? newValue) {
-                                    setState(() {
-                                      specialist = newValue!;
-                                    });
-                                  }
-                                : null,
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                          child: DropdownButtonFormField<String>(
-                            onTap: () {
-                              setState(() {
-                                academicYearClick = true;
-                              });
-                            },
-                            isExpanded: true,
-                            decoration: InputDecoration(
-                                enabledBorder: OutlineInputBorder(
-                                    borderSide: academicYearClick == true &&
-                                            academicYear == ""
-                                        ? BorderSide(
-                                            color: Colors.redAccent, width: 2)
-                                        : BorderSide.none),
-                                border: OutlineInputBorder(
-                                    borderSide: academicYearClick == true &&
-                                            academicYear == ""
-                                        ? BorderSide(
-                                            color: Colors.redAccent, width: 2)
-                                        : BorderSide(
-                                            color: Colors.blueAccent,
-                                            width: 2)),
-                                hintStyle: TextStyle(
-                                    color: Color.fromRGBO(73, 69, 79, 0.7)),
-                                hintText: "academic year",
-                                filled: true,
-                                fillColor: Color.fromRGBO(245, 245, 245, 0.6)),
-
-                            // Step 4.
-                            items: <String>[
-                              'First licence',
-                              'Second licence',
-                              "Third licence",
-                              "First master",
-                              "Second master"
-                            ].map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(
-                                  value,
-                                  style: TextStyle(fontSize: 15),
                                 ),
-                              );
-                            }).toList(),
-                            // Step 5.
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                academicYear = newValue!;
-                              });
-                            },
+                              ),
+                              Container(
+                                margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                                child: DropdownButtonFormField<String>(
+                                  onTap: () {
+                                    setState(() {
+                                      specialistClick = true;
+                                    });
+                                  },
+                                  key: _key1,
+                                  isExpanded: true,
+                                  decoration: InputDecoration(
+                                      enabledBorder: OutlineInputBorder(
+                                          borderSide: specialistClick == true &&
+                                                  specialist == ""
+                                              ? BorderSide(
+                                                  color: Colors.redAccent,
+                                                  width: 2)
+                                              : BorderSide.none),
+                                      border: OutlineInputBorder(
+                                          borderSide: specialistClick == true &&
+                                                  specialist == ""
+                                              ? BorderSide(
+                                                  color: Colors.redAccent,
+                                                  width: 2)
+                                              : BorderSide(
+                                                  color: Colors.blueAccent,
+                                                  width: 2)),
+                                      hintStyle: TextStyle(
+                                          color: Color.fromRGBO(73, 69, 79, 0.7)),
+                                      hintText: "specialist",
+                                      filled: true,
+                                      fillColor:
+                                          Color.fromRGBO(245, 245, 245, 0.6)),
+
+                                  // Step 4.
+                                  items: isCS
+                                      ? specialists.map<DropdownMenuItem<String>>(
+                                          (String value) {
+                                          return DropdownMenuItem<String>(
+                                            value: value,
+                                            child: Text(
+                                              value,
+                                              style: TextStyle(fontSize: 15),
+                                            ),
+                                          );
+                                        }).toList()
+                                      : null,
+                                  onChanged: isCS
+                                      ? (String? newValue) {
+                                          setState(() {
+                                            specialist = newValue!;
+                                          });
+                                        }
+                                      : null,
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                                child: DropdownButtonFormField<String>(
+                                  onTap: () {
+                                    setState(() {
+                                      academicYearClick = true;
+                                    });
+                                  },
+                                  isExpanded: true,
+                                  decoration: InputDecoration(
+                                      enabledBorder: OutlineInputBorder(
+                                          borderSide: academicYearClick == true &&
+                                                  academicYear == ""
+                                              ? BorderSide(
+                                                  color: Colors.redAccent,
+                                                  width: 2)
+                                              : BorderSide.none),
+                                      border: OutlineInputBorder(
+                                          borderSide: academicYearClick == true &&
+                                                  academicYear == ""
+                                              ? BorderSide(
+                                                  color: Colors.redAccent,
+                                                  width: 2)
+                                              : BorderSide(
+                                                  color: Colors.blueAccent,
+                                                  width: 2)),
+                                      hintStyle: TextStyle(
+                                          color: Color.fromRGBO(73, 69, 79, 0.7)),
+                                      hintText: "academic year",
+                                      filled: true,
+                                      fillColor:
+                                          Color.fromRGBO(245, 245, 245, 0.6)),
+
+                                  // Step 4.
+                                  items: <String>[
+                                    'First licence',
+                                    'Second licence',
+                                    "Third licence",
+                                    "First master",
+                                    "Second master"
+                                  ].map<DropdownMenuItem<String>>((String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(
+                                        value,
+                                        style: TextStyle(fontSize: 15),
+                                      ),
+                                    );
+                                  }).toList(),
+                                  // Step 5.
+                                  onChanged: (String? newValue) {
+                                    setState(() {
+                                      academicYear = newValue!;
+                                    });
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      : Container(
+                          margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                          child: Column(
+                            children: [
+                              TextFormField(
+                                controller: _controller3,
+                                onChanged: (String? newValue) => setState(() {
+                                  module = newValue!;
+                                }),
+                                onTap: () {
+                                  setState(() {
+                                    moduleClick = true;
+                                  });
+                                },
+                                decoration: InputDecoration(
+                                    suffixIcon: _controller3.text.length > 0
+                                        ? IconButton(
+                                            onPressed: () {
+                                              _controller3.clear();
+                                              setState(() {});
+                                            },
+                                            icon: Icon(Icons.clear),
+                                          )
+                                        : null,
+                                    enabledBorder: OutlineInputBorder(
+                                        borderSide: _controller3.text.isEmpty &&
+                                                moduleClick
+                                            ? BorderSide(
+                                                color: Colors.redAccent, width: 2)
+                                            : BorderSide.none),
+                                    border: OutlineInputBorder(
+                                        borderSide: _controller3.text.isEmpty &&
+                                                moduleClick
+                                            ? BorderSide(
+                                                color: Colors.redAccent, width: 2)
+                                            : BorderSide(
+                                                color: Colors.blueAccent,
+                                                width: 2)),
+                                    hintStyle: TextStyle(
+                                        color: Color.fromRGBO(73, 69, 79, 0.7)),
+                                    hintText: "module",
+                                    filled: true,
+                                    fillColor:
+                                        Color.fromRGBO(245, 245, 245, 0.6)),
+                              )
+                            ],
                           ),
                         ),
-                      ],
-                    ),
-                  )
-                : Container(
-                    margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                    child: Column(
+                  Container(
+                    child: Row(
                       children: [
-                        TextFormField(
-                          controller: _controller3,
-                          onChanged: (String? newValue) => setState(() {
-                            module = newValue!;
-                          }),
-                          onTap: () {
-                            setState(() {
-                              moduleClick = true;
-                            });
-                          },
-                          decoration: InputDecoration(
-                              suffixIcon: _controller3.text.length > 0
-                                  ? IconButton(
-                                      onPressed: () {
-                                        _controller3.clear();
-                                        setState(() {});
-                                      },
-                                      icon: Icon(Icons.clear),
-                                    )
-                                  : null,
-                              enabledBorder: OutlineInputBorder(
-                                  borderSide:
-                                      _controller3.text.isEmpty && moduleClick
-                                          ? BorderSide(
-                                              color: Colors.redAccent, width: 2)
-                                          : BorderSide.none),
-                              border: OutlineInputBorder(
-                                  borderSide:
-                                      _controller3.text.isEmpty && moduleClick
-                                          ? BorderSide(
-                                              color: Colors.redAccent, width: 2)
-                                          : BorderSide(
-                                              color: Colors.blueAccent,
-                                              width: 2)),
-                              hintStyle: TextStyle(
-                                  color: Color.fromRGBO(73, 69, 79, 0.7)),
-                              hintText: "module",
-                              filled: true,
-                              fillColor: Color.fromRGBO(245, 245, 245, 0.6)),
+                        Expanded(
+                          child: Container(
+                            margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(0, 20, 0, 20)),
+                              onPressed: () => {widget.controller.previous()},
+                              child: Text("Prev"),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: Container(
+                            margin: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(0, 20, 0, 20)),
+                              onPressed: () => {next()},
+                              child: connecting == false
+                                  ? Text("Next")
+                                  : Container(
+                                      height: 20,
+                                      width: 20,
+                                      child: const Center(
+                                          child: CircularProgressIndicator(
+                                        color: Colors.white,
+                                      ))),
+                            ),
+                          ),
                         )
                       ],
-                    ),
-                  ),
-            Container(
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.fromLTRB(0, 20, 0, 20)),
-                        onPressed: () => {widget.controller.previous()},
-                        child: Text("Prev"),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: Container(
-                      margin: EdgeInsets.fromLTRB(5, 0, 0, 0),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.fromLTRB(0, 20, 0, 20)),
-                        onPressed: () => {next()},
-                        child: connecting == false
-                            ? Text("Next")
-                            : Container(
-                                height: 20,
-                                width: 20,
-                                child: const Center(
-                                    child: CircularProgressIndicator(
-                                  color: Colors.white,
-                                ))),
-                      ),
                     ),
                   )
                 ],
               ),
-            )
-          ],
-        ),
-      ),
+            ),
+          )),
     );
   }
 }

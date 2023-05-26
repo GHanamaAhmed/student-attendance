@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:http/http.dart' as http;
 import 'package:card_swiper/card_swiper.dart';
+import 'package:hive/hive.dart';
+import 'package:skoni/student%20ui/session.dart';
 class QRCode extends StatefulWidget {
   final SwiperController contoller;
   QRCode({Key? key, required this.contoller}) : super(key: key);
@@ -9,6 +13,32 @@ class QRCode extends StatefulWidget {
   State<QRCode> createState() => _QRCodeState();
 }
 class _QRCodeState extends State<QRCode> with TickerProviderStateMixin {
+  dynamic joinroom(String qrcode) async {
+    var user =await Hive.box("user");
+    var respone;
+    respone = await http.post(
+        Uri.parse("https://simpleapi-p29y.onrender.com/student/joinCode"),
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: {
+          "email": user.get("user")!.email,
+          "password":user.get("user")!.password,
+          "code":code
+        });
+    var deresponse;
+    deresponse = jsonDecode(respone.body);
+    if (deresponse["res"] == true) {
+      // await Future.delayed(Duration(seconds: 1));
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => Session(
+            idroom: deresponse["data"]["idRoom"].toString(),
+          )));
+    }else{
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Code invalid")));
+    }
+  }
+  String code="";
   @override
   void initState() {
     // TODO: implement initState
@@ -48,6 +78,11 @@ class _QRCodeState extends State<QRCode> with TickerProviderStateMixin {
                   child: FractionallySizedBox(
                     widthFactor: 0.8,
                     child: TextFormField(
+                      onChanged: (value) {
+                        setState(() {
+                          code = value;
+                        });
+                      },
                       onTap: () {},
                       decoration: InputDecoration(
                           enabledBorder:
@@ -72,7 +107,11 @@ class _QRCodeState extends State<QRCode> with TickerProviderStateMixin {
                           padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
                           backgroundColor: Colors.white,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+                            joinroom(code);
+                          });
+                        },
                         child: Text(
                           "Scan",
                           style:

@@ -47,6 +47,28 @@ class _SessionState extends State<Session> {
         data.add(res);
       });
     });
+    socket.on("remove", (res) {
+      print(res["idStudent"]);
+      if(res["idRoom"]==widget.idroom){
+        setState(() {
+          data.removeWhere((element) => element["idStudent"]==res["idStudent"]);
+        });
+      }
+    });
+    socket.on("removes", (res) {
+      print(res["idStudent"]);
+      if(res["idRoom"]==widget.idroom){
+        setState(() {
+          res["idStudent"].forEach((elements) {
+            data.removeWhere((elementr) => elementr["idStudent"]==elements);
+          });
+        });
+        setState(() {
+          print(res["idStudent"]);
+    print(data);
+        });
+      }
+    });
     /*socket.on("message", (data) {
       print(data.toString());
     });*/
