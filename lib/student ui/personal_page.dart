@@ -168,7 +168,7 @@ class _PersonState extends State<Person> {
                                         AlertDialog(
                                           scrollable: true,
                                           title:
-                                              const Text('Exit confirmation'),
+                                              const Text('User management'),
                                           content:
                                               UserManagment(isClick: isClick),
                                           actions: <Widget>[
